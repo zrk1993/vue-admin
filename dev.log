@@ -1,3 +1,8 @@
+## 2018-5-13
+
+1. 可以使用 /* eslint-disable */ 和 /* eslint-disable no-alert */ 和 /* eslint-disable-next-line */
+2. 组件命名以中划线，
+
 ## 2018-5-10
 
 初始化admin项目
