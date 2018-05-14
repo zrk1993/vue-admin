@@ -2,7 +2,7 @@
   <scroll-bar>
     <div class="logo">
       <img src="https://img.alicdn.com/tfs/TB13UQpnYGYBuNjy0FoXXciBFXa-242-134.png" width="40">
-      <span class="site-name">ADMIN LITE</span>
+      <span class="site-name">ADMIN</span>
     </div>
     <el-menu
       class="menu-wrap"
@@ -12,25 +12,23 @@
       text-color="hsla(0,0%,100%,.65)"
       active-text-color="#409EFF"
     >
-      <side-bar-item :routes="permission_routers"></side-bar-item>
+      <side-bar-item :routes="routes"></side-bar-item>
     </el-menu>
   </scroll-bar>
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
 import SideBarItem from './SideBarItem';
 import ScrollBar from '../ScrollBar';
 
 export default {
   components: { SideBarItem, ScrollBar },
   computed: {
-    ...mapGetters([
-      'permission_routers',
-    ]),
+    routes() {
+      return this.$router.options.routes;
+    },
   },
   created() {
-    console.log(this.permission_routers);
   },
 };
 </script>

@@ -66,10 +66,15 @@ export default {
       background-color: #188fff !important;
       color: #fff !important;
     }
+    &:hover {
+      color: #fff !important;
+    }
   }
-  .el-submenu__title i {
-    font-size: 14px;
-    color: rgba(255, 255, 255, 0.65);
+  .el-submenu__title {
+    i {
+      font-size: 14px;
+      color:#fff;
+    }
   }
 }
 </style>
