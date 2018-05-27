@@ -48,6 +48,6 @@ module.exports = {
     // allow debugger during development
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'no-underscore-dangle': 'off',
-    "max-len": [2, 180, 4],
+    "max-len": [0, 1800, 4],
   }
 }

@@ -1,126 +1,124 @@
 <template>
   <div class="tags-view-container">
     <scroll-pane class='tags-view-wrapper' ref='scrollPane'>
-      <router-link ref='tag' class="tags-view-item" :class="isActive(tag)?'active':''" v-for="tag in Array.from(visitedViews)"
+      <router-link ref='tag' class="tags-view-item" :class="isActive(tag)?'active':''"
+        v-for="tag in Array.from(visitedViews)"
         :to="tag.path" :key="tag.path" @contextmenu.prevent.native="openMenu(tag,$event)">
         {{generateTitle(tag.title)}}
         <span class='el-icon-close' @click.prevent.stop='closeSelectedTag(tag)'></span>
       </router-link>
     </scroll-pane>
     <ul class='contextmenu' v-show="visible" :style="{left:left+'px',top:top+'px'}">
-      <li @click="closeSelectedTag(selectedTag)">{{$t('tagsView.close')}}</li>
-      <li @click="closeOthersTags">{{$t('tagsView.closeOthers')}}</li>
-      <li @click="closeAllTags">{{$t('tagsView.closeAll')}}</li>
+      <li @click="closeSelectedTag(selectedTag)">关闭</li>
+      <li @click="closeOthersTags">关闭其它</li>
+      <li @click="closeAllTags">关闭所有</li>
     </ul>
   </div>
 </template>
 
 <script>
-/* eslint-disable */
 import ScrollPane from '@/components/ScrollPane';
 
 export default {
+  name: 'TagsView',
   components: { ScrollPane },
   data() {
     return {
       visible: false,
       top: 0,
       left: 0,
-      selectedTag: {}
-    }
+      selectedTag: {},
+    };
   },
   computed: {
     visitedViews() {
-      return this.$store.state.tagsView.visitedViews
-    }
+      return this.$store.state.tagsView.visitedViews;
+    },
   },
   watch: {
     $route() {
-      this.addViewTags()
-      this.moveToCurrentTag()
+      this.addViewTags();
+      this.moveToCurrentTag();
     },
     visible(value) {
       if (value) {
-        document.body.addEventListener('click', this.closeMenu)
+        document.body.addEventListener('click', this.closeMenu);
       } else {
-        document.body.removeEventListener('click', this.closeMenu)
+        document.body.removeEventListener('click', this.closeMenu);
       }
-    }
+    },
   },
   mounted() {
-    this.addViewTags()
+    this.addViewTags();
   },
   methods: {
-    generateTitle, // generateTitle by vue-i18n
+    generateTitle(title) {
+      return title;
+    },
     generateRoute() {
-      if (this.$route.name) {
-        return this.$route
-      }
-      return false
+      return this.$route;
     },
     isActive(route) {
-      return route.path === this.$route.path || route.name === this.$route.name
+      return route.path === this.$route.path;
     },
     addViewTags() {
-      const route = this.generateRoute()
+      const route = this.generateRoute();
       if (!route) {
-        return false
+        return;
       }
-      this.$store.dispatch('addVisitedViews', route)
+      this.$store.dispatch('addVisitedViews', route);
     },
     moveToCurrentTag() {
-      const tags = this.$refs.tag
+      const tags = this.$refs.tag || [];
       this.$nextTick(() => {
+        // eslint-disable-next-line
         for (const tag of tags) {
           if (tag.to === this.$route.path) {
-            this.$refs.scrollPane.moveToTarget(tag.$el)
-            break
+            this.$refs.scrollPane.moveToTarget(tag.$el);
+            break;
           }
         }
-      })
+      });
     },
     closeSelectedTag(view) {
       this.$store.dispatch('delVisitedViews', view).then((views) => {
         if (this.isActive(view)) {
-          const latestView = views.slice(-1)[0]
+          const latestView = views.slice(-1)[0];
           if (latestView) {
-            this.$router.push(latestView.path)
+            this.$router.push(latestView.path);
           } else {
-            this.$router.push('/')
+            this.$router.push('/');
           }
         }
-      })
+      });
     },
     closeOthersTags() {
-      this.$router.push(this.selectedTag.path)
+      this.$router.push(this.selectedTag.path);
       this.$store.dispatch('delOthersViews', this.selectedTag).then(() => {
-        this.moveToCurrentTag()
-      })
+        this.moveToCurrentTag();
+      });
     },
     closeAllTags() {
-      this.$store.dispatch('delAllViews')
-      this.$router.push('/')
+      this.$store.dispatch('delAllViews');
+      this.$router.push('/');
     },
     openMenu(tag, e) {
-      this.visible = true
-      this.selectedTag = tag
-      this.left = e.clientX
-      this.top = e.clientY
+      this.visible = true;
+      this.selectedTag = tag;
+      this.left = e.clientX;
+      this.top = e.clientY;
     },
     closeMenu() {
-      this.visible = false
-    }
-  }
-}
+      this.visible = false;
+    },
+  },
+};
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scoped>
 .tags-view-container {
   .tags-view-wrapper {
-    background: #fff;
-    height: 34px;
-    border-bottom: 1px solid #d8dce5;
-    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .12), 0 0 3px 0 rgba(0, 0, 0, .04);
+    height: 50px;
     .tags-view-item {
       display: inline-block;
       position: relative;
@@ -131,6 +129,7 @@ export default {
       background: #fff;
       padding: 0 8px;
       font-size: 12px;
+      text-decoration: none;
       margin-left: 5px;
       margin-top: 4px;
       &:first-of-type {

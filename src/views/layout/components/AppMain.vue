@@ -19,6 +19,7 @@ export default {
   margin: 10px;
   overflow: hidden;
   background: #fff;
+  overflow: auto;
 }
 </style>
 

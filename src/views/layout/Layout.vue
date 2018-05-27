@@ -38,7 +38,7 @@ export default {
   min-height: 100vh;
   transition: margin-left 0.28s;
   margin-left: 210px;
-  background-color: #f0f2f5;
+  overflow: hidden;
 }
 
 .sidebar-container {
