@@ -13,3 +13,10 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+  h2 {
+    margin-top: 100px;
+    text-align: center;
+  }
+</style>
