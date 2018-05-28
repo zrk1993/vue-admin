@@ -34,7 +34,6 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
 import Hamburger from '@/components/Hamburger';
 import TagsView from './TagsView';
 
