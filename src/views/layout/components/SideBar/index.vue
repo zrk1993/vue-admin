@@ -1,7 +1,6 @@
 <template>
   <scroll-bar>
     <div class="logo">
-      <img src="https://img.alicdn.com/tfs/TB13UQpnYGYBuNjy0FoXXciBFXa-242-134.png" width="40">
       <span class="site-name">ADMIN</span>
     </div>
     <el-menu
@@ -27,14 +26,14 @@ export default {
   components: { SideBarItem, ScrollBar },
   computed: {
     ...mapGetters([
-      'sidebar'
+      'sidebar',
     ]),
     routes() {
       return this.$router.options.routes;
     },
     isCollapse() {
       return !this.sidebar.opened;
-    }
+    },
   },
   created() {
   },
@@ -48,15 +47,12 @@ export default {
   align-items: center;
   height: 56px;
   line-height: 56px;
-  background: #002140;
+  background: #001529;
   color: #fff;
   text-align: center;
   font-size: 20px;
   font-weight: 600;
   overflow: hidden;
-}
-.site-name {
-  margin-left: 10px;
 }
 .menu-wrap {
   border-right: none;

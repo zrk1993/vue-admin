@@ -10,7 +10,7 @@
       </router-link>
 
       <el-submenu v-else :index="item.path" :key="item.path">
-        <template slot="title">
+        <template slot="title" class="link">
           <i v-if="item.meta && item.meta.icon" :class="item.meta.icon"></i>
           <span v-if="item.meta && item.meta.title" slot="title">{{item.meta.title}}</span>
         </template>
@@ -18,7 +18,7 @@
         <template v-for="child in item.children" v-if="!child.hidden">
           <side-bar-item :is-nest="true" class="nest-menu" v-if="child.children&&child.children.length>0" :navs="[child]" :key="child.path"></side-bar-item>
 
-          <router-link v-else :to="item.path+'/'+child.path" :key="child.path">
+          <router-link class="link" v-else :to="item.path+'/'+child.path" :key="child.path">
             <el-menu-item :index="item.path+'/'+child.path">
               <i v-if="child && child.meta.icon" :class="child.meta.icon"></i>
               <span v-if="child && child.meta.title" slot="title">{{child.meta.title}}</span>
@@ -53,8 +53,13 @@ export default {
     display: inline-block;
     width: 100%;
   }
+  .link {
+    height: 48px !important;
+    line-height: 48px !important;
+    background-color: #000c17 !important;
+  }
   .el-submenu .el-menu-item {
-    padding-left: 48px !important;
+    padding-left: 40px !important;
     background-color: #000c17 !important;
     &:hover {
       color: #fff !important;
@@ -62,19 +67,32 @@ export default {
   }
   .el-menu-item,
   .el-submenu .el-menu-item {
+    height: 42px !important;
+    line-height: 42px !important;
+    margin: 8px 0;
     &.is-active {
-      background-color: #188fff !important;
+      background-color: #409eff !important;
       color: #fff !important;
     }
     &:hover {
       color: #fff !important;
     }
   }
-  .el-submenu__title {
-    i {
-      font-size: 14px;
-      color:#fff;
+
+  .el-menu-item {
+    .el-submenu__title {
+      i {
+        font-size: 14px;
+        color:#fff;
+      }
     }
   }
 }
 </style>
+<style>
+  .side-bar-item .el-submenu__title{
+    height: 48px !important;
+    line-height: 48px !important;
+  }
+</style>
+

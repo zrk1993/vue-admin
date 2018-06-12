@@ -10,38 +10,58 @@ const asyncRouterMap = [
   {
     path: '/dashboard',
     component: Layout,
-    redirect: '/dashboard/index',
     meta: {
       title: '首页',
       icon: 'el-icon-date',
     },
     children: [
       {
-        path: 'index',
+        path: '',
         component: _import('dashboard/index'),
         meta: {
           title: '首页',
-        },
-      },
-      {
-        path: 'test',
-        component: _import('dashboard/test/index'),
-        meta: {
-          title: '测试页',
+          icon: 'el-icon-date',
         },
       },
     ],
   },
   {
-    path: '/hello',
+    path: '/system-mangement',
     component: Layout,
-    redirect: '/hello/index',
+    meta: {
+      title: '系统管理',
+      icon: 'el-icon-date',
+    },
     children: [
       {
-        path: 'index',
+        path: 'user',
         component: _import('dashboard/index'),
         meta: {
-          title: '你好',
+          title: '用户管理',
+          icon: 'el-icon-date',
+        },
+      },
+      {
+        path: 'role',
+        component: _import('dashboard/index'),
+        meta: {
+          title: '角色管理',
+          icon: 'el-icon-date',
+        },
+      },
+      {
+        path: 'perm',
+        component: _import('dashboard/index'),
+        meta: {
+          title: '权限管理',
+          icon: 'el-icon-date',
+        },
+      },
+      {
+        path: 'resc',
+        component: _import('dashboard/index'),
+        meta: {
+          title: '资源管理',
           icon: 'el-icon-date',
         },
       },

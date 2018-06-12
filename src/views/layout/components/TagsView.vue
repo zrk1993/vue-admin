@@ -105,8 +105,8 @@ export default {
     openMenu(tag, e) {
       this.visible = true;
       this.selectedTag = tag;
-      this.left = e.clientX;
-      this.top = e.clientY;
+      this.left = e.offsetX;
+      this.top = e.offsetY;
     },
     closeMenu() {
       this.visible = false;
@@ -117,6 +117,7 @@ export default {
 
 <style rel="stylesheet/scss" lang="scss" scoped>
 .tags-view-container {
+  position: relative;
   .tags-view-wrapper {
     height: 50px;
     .tags-view-item {
@@ -158,15 +159,16 @@ export default {
     z-index: 100;
     position: absolute;
     list-style-type: none;
-    padding: 5px 0;
+    padding: 0;
     border-radius: 4px;
     font-size: 12px;
     font-weight: 400;
     color: #333;
     box-shadow: 2px 2px 3px 0 rgba(0, 0, 0, .3);
     li {
+      line-height: 30px;
       margin: 0;
-      padding: 7px 16px;
+      padding: 0 16px;
       cursor: pointer;
       &:hover {
         background: #eee;
