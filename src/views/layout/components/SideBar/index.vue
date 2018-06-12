@@ -7,7 +7,6 @@
       class="menu-wrap"
       mode="vertical"
       :show-timeout="200"
-      :collapse="isCollapse"
       background-color="#00142a"
       text-color="hsla(0,0%,100%,.65)"
       active-text-color="#409EFF"
@@ -30,9 +29,6 @@ export default {
     ]),
     routes() {
       return this.$router.options.routes;
-    },
-    isCollapse() {
-      return !this.sidebar.opened;
     },
   },
   created() {
