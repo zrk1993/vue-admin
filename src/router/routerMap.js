@@ -69,4 +69,17 @@ const asyncRouterMap = [
   },
 ];
 
+function setName(arr, prefix = '') {
+  arr.forEach((item) => {
+    const name = [prefix, item.path].join('').replace(/\//g, ''); // 组件名只能小写字母开头
+    if (!item.children) {
+      /* eslint-disable-next-line */
+      item.component.name = item.component.name || name; // keep-alive要求组件必须要有name属性
+    } else {
+      setName(item.children, name);
+    }
+  });
+}
+setName(asyncRouterMap);
+
 export { constantRouterMap, asyncRouterMap };

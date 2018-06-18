@@ -39,6 +39,7 @@ module.exports = {
         'acc', // for reduce accumulators
         'e', // for e.returnvalue
         'Vue',
+        'item',
       ]
     }],
     // allow optionalDependencies

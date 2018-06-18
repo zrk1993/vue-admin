@@ -31,11 +31,9 @@ export default {
     routes() {
       return this.$router.options.routes;
     },
-  },
-  data() {
-    return {
-      defaultActive: this.$route.path || '/dashboard/',
-    };
+    defaultActive() {
+      return this.$route.path || '/dashboard/';
+    },
   },
 };
 </script>
