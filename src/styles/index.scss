@@ -28,13 +28,32 @@ a:hover {
   text-decoration: none;
 }
 
-.clearfix {
-  &:after {
-    visibility: hidden;
-    display: block;
-    font-size: 0;
-    content: " ";
-    clear: both;
-    height: 0;
+/* 搜索 */
+.search-form {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+
+  .actions{
+    min-height: 45px;
+  }
+}
+
+/* dialoog */
+.dialog {
+  .dialog-cont {
+    margin-top: -20px;
+  }
+  .dialog-footer {
+    margin-bottom: -10px;
+    margin-top: 10px;
+    text-align: right;
+  }
+}
+
+/* element-ui */
+.el-table {
+  th,tr{
+    text-align: center;
   }
 }

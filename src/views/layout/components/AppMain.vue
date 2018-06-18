@@ -1,10 +1,10 @@
 <template>
-  <section class="app-main">
+  <div class="app-main">
     <transition name="fade" mode="out-in">
       <!-- <router-view :key="key"></router-view> -->
       <router-view></router-view>
     </transition>
-  </section>
+  </div>
 </template>
 
 <script>
@@ -15,8 +15,8 @@ export default {
 
 <style scoped>
 .app-main {
-  height: 100%;
-  margin: 10px;
+  height: calc(100% - 70px);
+  margin: 15px 15px 5px;
   overflow: hidden;
   background: #fff;
   overflow: auto;

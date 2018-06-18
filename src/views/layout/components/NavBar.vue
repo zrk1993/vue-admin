@@ -60,7 +60,7 @@ export default {
 
   .tags-view {
     width: 100%;
-    margin: 0 200px 0 2px;
+    margin: 0 200px 0 0;
   }
 
   .user-profile-container {

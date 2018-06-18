@@ -7,6 +7,7 @@
       class="menu-wrap"
       mode="vertical"
       :show-timeout="200"
+      :default-active="defaultActive"
       background-color="#00142a"
       text-color="hsla(0,0%,100%,.65)"
       active-text-color="#409EFF"
@@ -31,7 +32,10 @@ export default {
       return this.$router.options.routes;
     },
   },
-  created() {
+  data() {
+    return {
+      defaultActive: this.$route.path || '/dashboard/',
+    };
   },
 };
 </script>

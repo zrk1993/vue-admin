@@ -35,10 +35,10 @@ export default {
 
 .main-container {
   position: relative;
-  min-height: 100vh;
+  height: 100%;
   transition: margin-left 0.28s;
   margin-left: 210px;
-  overflow: hidden;
+  overflow: auto;
 }
 
 .sidebar-container {

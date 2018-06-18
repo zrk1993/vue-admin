@@ -1,0 +1,15 @@
+/* 改变主题色变量 */
+$--color-primary: #409EFF;
+
+/* 改变 icon 字体路径变量，必需 */
+$--font-path: '~element-ui/lib/theme-chalk/fonts';
+
+/* Table
+-------------------------- */
+$--table-border-color: unquote('#c2cae07a') !default;
+$--table-text-color: unquote('#4f5053') !default;
+$--table-header-color: unquote('#575b63e0') !default;
+$--table-row-hover-background: unquote('#f5f7facb') !default;
+$--table-header-background: unquote('#51739627') !default;
+
+@import "~element-ui/packages/theme-chalk/src/index";

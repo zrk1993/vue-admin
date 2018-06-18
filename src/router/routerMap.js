@@ -34,15 +34,15 @@ const asyncRouterMap = [
     },
     children: [
       {
-        path: 'user',
-        component: _import('dashboard/index'),
+        path: 'user-mangement',
+        component: _import('system-mangement/user-mangement/index'),
         meta: {
           title: '用户管理',
           icon: 'el-icon-date',
         },
       },
       {
-        path: 'role',
+        path: 'role-mangement',
         component: _import('dashboard/index'),
         meta: {
           title: '角色管理',
@@ -50,7 +50,7 @@ const asyncRouterMap = [
         },
       },
       {
-        path: 'perm',
+        path: 'perm-mangement',
         component: _import('dashboard/index'),
         meta: {
           title: '权限管理',
@@ -58,7 +58,7 @@ const asyncRouterMap = [
         },
       },
       {
-        path: 'resc',
+        path: 'resc-mangement',
         component: _import('dashboard/index'),
         meta: {
           title: '资源管理',
