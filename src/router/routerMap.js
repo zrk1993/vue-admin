@@ -8,6 +8,10 @@ const constantRouterMap = [
 
 const asyncRouterMap = [
   {
+    path: '',
+    redirect: '/dashboard',
+  },
+  {
     path: '/dashboard',
     component: Layout,
     meta: {

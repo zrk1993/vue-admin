@@ -6,8 +6,9 @@ import { Message } from 'element-ui';
 NProgress.configure({ showSpinner: false }); // NProgress Configuration
 
 // create an axios instance
+const baseURL = process.env.NODE_ENV === 'production' ? 'http://api.renkun.vip' : 'http://localhost:3000';
 const request = axios.create({
-  baseURL: 'http://localhost:3000', // api的base_url
+  baseURL, // api的base_url
   timeout: 180000, // request timeout
 });
 
