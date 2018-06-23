@@ -1,9 +1,12 @@
 <template>
   <div class="app-main">
     <transition name="fade" mode="out-in">
-      <keep-alive :include="cachedViews">
-        <router-view :key="key"></router-view>
+      <keep-alive>
+        <router-view v-if="isCache" :key="key"></router-view>
       </keep-alive>
+    </transition>
+    <transition name="fade" mode="out-in">
+      <router-view v-if="!isCache" :key="key"></router-view>
     </transition>
   </div>
 </template>
@@ -17,6 +20,10 @@ export default {
     },
     key() {
       return this.$route.fullPath;
+    },
+    isCache() {
+      console.log(!!this.cachedViews.find(i => i === this.key));
+      return !!this.cachedViews.find(i => i === this.key);
     },
   },
 };
