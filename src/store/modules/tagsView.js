@@ -12,8 +12,7 @@ const tagsView = {
         title: view.meta.title || 'no-name',
       });
       if (!view.meta.noCache) {
-        // 因为组件names属性要求以小写字母开头，cachedViews存的是去掉‘/’的路径
-        state.cachedViews.push(view.path.replace(/\//g, ''));
+        state.cachedViews.push(view.path);
       }
     },
     DEL_VISITED_VIEWS: (state, view) => {
@@ -26,7 +25,7 @@ const tagsView = {
       }
       // eslint-disable-next-line
       for (const i of state.cachedViews) {
-        if (i === view.path.replace(/\//g, '')) {
+        if (i === view.path) {
           const index = state.cachedViews.indexOf(i);
           state.cachedViews.splice(index, 1);
           break;
@@ -43,7 +42,7 @@ const tagsView = {
       }
       // eslint-disable-next-line
       for (const i of state.cachedViews ) {
-        if (i === view.path.replace(/\//g, '')) {
+        if (i === view.path) {
           const index = state.cachedViews.indexOf(i);
           state.cachedViews = state.cachedViews.slice(index, i + 1);
           break;
