@@ -91,5 +91,6 @@ function setName(arr, prefix = '') {
   });
 }
 setName(asyncRouterMap);
+window.console.log(asyncRouterMap);
 
 export { constantRouterMap, asyncRouterMap };
