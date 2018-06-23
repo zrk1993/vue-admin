@@ -73,18 +73,25 @@ const asyncRouterMap = [
   },
 ];
 
-// 无效 18-6-22
-// function setName(arr, prefix = '') {
-//   arr.forEach((item) => {
-//     const name = [prefix, item.path].join('').replace(/\//g, ''); // 组件名只能小写字母开头
-//     if (!item.children) {
-//       /* eslint-disable-next-line */
-//       item.component.name = item.component.name || name; // keep-alive要求组件必须要有name属性
-//     } else {
-//       setName(item.children, name);
-//     }
-//   });
-// }
-// setName(asyncRouterMap);
+function setName(arr, prefix = '') {
+  arr.forEach((item) => {
+    const name = [prefix, item.path].join('').replace(/\//g, ''); // 组件名只能小写字母开头
+    if (!item.children) {
+      /* eslint-disable-next-line */
+      // item.component.name = item.component.name || name; // keep-alive要求组件必须要有name属性
+      if (item.component) {
+        Object.defineProperty(item.component, name, {
+          value: item.component.name || name,
+          writable: false,
+          enumerable: true,
+          configurable: true,
+        });
+      }
+    } else {
+      setName(item.children, name);
+    }
+  });
+}
+setName(asyncRouterMap);
 
 export { constantRouterMap, asyncRouterMap };
