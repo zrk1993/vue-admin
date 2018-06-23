@@ -105,8 +105,8 @@ export default {
     openMenu(tag, e) {
       this.visible = true;
       this.selectedTag = tag;
-      this.left = e.offsetX;
-      this.top = e.offsetY;
+      this.left = e.clientX + 10;
+      this.top = e.clientY;
     },
     closeMenu() {
       this.visible = false;
@@ -157,7 +157,7 @@ export default {
     margin: 0;
     background: #fff;
     z-index: 100;
-    position: absolute;
+    position: fixed;
     list-style-type: none;
     padding: 0;
     border-radius: 4px;

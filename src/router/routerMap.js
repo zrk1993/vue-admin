@@ -30,7 +30,7 @@ const asyncRouterMap = [
     ],
   },
   {
-    path: '/system-mangement',
+    path: '/system-management',
     component: Layout,
     meta: {
       title: '系统管理',
@@ -38,31 +38,31 @@ const asyncRouterMap = [
     },
     children: [
       {
-        path: 'user-mangement',
-        component: _import('system-mangement/user-mangement/index'),
+        path: 'user-management',
+        component: _import('system-management/user-management/index'),
         meta: {
           title: '用户管理',
           icon: 'el-icon-date',
         },
       },
       {
-        path: 'role-mangement',
-        component: _import('dashboard/index'),
+        path: 'role-management',
+        component: _import('system-management/role-management/index'),
         meta: {
           title: '角色管理',
           icon: 'el-icon-date',
         },
       },
       {
-        path: 'perm-mangement',
-        component: _import('dashboard/index'),
+        path: 'perm-management',
+        component: _import('system-management/perm-management/index'),
         meta: {
           title: '权限管理',
           icon: 'el-icon-date',
         },
       },
       {
-        path: 'resc-mangement',
+        path: 'resc-management',
         component: _import('dashboard/index'),
         meta: {
           title: '资源管理',
@@ -72,25 +72,5 @@ const asyncRouterMap = [
     ],
   },
 ];
-
-function setName(arr, prefix = '') {
-  arr.forEach((item) => {
-    const name = [prefix, item.path].join('').replace(/\//g, ''); // 组件名只能小写字母开头
-    if (!item.children) {
-      if (item.component) {
-        Object.defineProperty(item.component, 'name', {
-          value: item.component.name || name,
-          writable: false,
-          enumerable: true,
-          configurable: true,
-        });
-      }
-    } else {
-      setName(item.children, name);
-    }
-  });
-}
-setName(asyncRouterMap);
-window.console.log(asyncRouterMap);
 
 export { constantRouterMap, asyncRouterMap };

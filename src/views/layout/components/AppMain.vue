@@ -2,11 +2,8 @@
   <div class="app-main">
     <transition name="fade" mode="out-in">
       <keep-alive>
-        <router-view v-if="isCache" :key="key"></router-view>
+        <router-view :key="key"></router-view>
       </keep-alive>
-    </transition>
-    <transition name="fade" mode="out-in">
-      <router-view v-if="!isCache" :key="key"></router-view>
     </transition>
   </div>
 </template>
@@ -19,11 +16,7 @@ export default {
       return this.$store.state.tagsView.cachedViews;
     },
     key() {
-      return this.$route.fullPath;
-    },
-    isCache() {
-      console.log(!!this.cachedViews.find(i => i === this.key));
-      return !!this.cachedViews.find(i => i === this.key);
+      return this.cachedViews.find(i => i.startsWith(this.$route.fullPath)) || Date.now();
     },
   },
 };

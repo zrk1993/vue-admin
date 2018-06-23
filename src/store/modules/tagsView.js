@@ -7,47 +7,19 @@ const tagsView = {
     ADD_VISITED_VIEWS: (state, view) => {
       if (state.visitedViews.some(v => v.path === view.path)) return;
       state.visitedViews.push({
-        name: view.name,
         path: view.path,
         title: view.meta.title || 'no-name',
       });
       if (!view.meta.noCache) {
-        state.cachedViews.push(view.path);
+        state.cachedViews.push([view.path, Date.now()].join()); // notice!!! 这里拼接时间
       }
     },
     DEL_VISITED_VIEWS: (state, view) => {
-      // eslint-disable-next-line
-      for (const [i, v] of state.visitedViews.entries()) {
-        if (v.path === view.path) {
-          state.visitedViews.splice(i, 1);
-          break;
-        }
-      }
-      // eslint-disable-next-line
-      for (const i of state.cachedViews) {
-        if (i === view.path) {
-          const index = state.cachedViews.indexOf(i);
-          state.cachedViews.splice(index, 1);
-          break;
-        }
-      }
-    },
-    DEL_OTHERS_VIEWS: (state, view) => {
-      // eslint-disable-next-line
-      for (const [i, v] of state.visitedViews.entries()) {
-        if (v.path === view.path) {
-          state.visitedViews = state.visitedViews.slice(i, i + 1);
-          break;
-        }
-      }
-      // eslint-disable-next-line
-      for (const i of state.cachedViews ) {
-        if (i === view.path) {
-          const index = state.cachedViews.indexOf(i);
-          state.cachedViews = state.cachedViews.slice(index, i + 1);
-          break;
-        }
-      }
+      const visitedViewIndex = state.visitedViews.findIndex(item => item.path === view.path);
+      if (visitedViewIndex !== -1) state.visitedViews.splice(visitedViewIndex, 1);
+
+      const cachedViewIndex = state.cachedViews.findIndex(item => item.startsWith(view.path));
+      if (cachedViewIndex !== -1) state.cachedViews.splice(cachedViewIndex, 1);
     },
     DEL_ALL_VIEWS: (state) => {
       state.visitedViews = [];
@@ -66,7 +38,11 @@ const tagsView = {
     },
     delOthersViews({ commit, state }, view) {
       return new Promise((resolve) => {
-        commit('DEL_OTHERS_VIEWS', view);
+        state.visitedViews.forEach((item) => {
+          if (item.path !== view.path) {
+            commit('DEL_VISITED_VIEWS', item);
+          }
+        });
         resolve([...state.visitedViews]);
       });
     },
