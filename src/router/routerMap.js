@@ -7,10 +7,7 @@ const constantRouterMap = [
 ];
 
 const asyncRouterMap = [
-  {
-    path: '',
-    redirect: '/dashboard',
-  },
+  { path: '', redirect: '/dashboard/index' },
   {
     path: '/dashboard',
     component: Layout,
@@ -20,7 +17,7 @@ const asyncRouterMap = [
     },
     children: [
       {
-        path: '',
+        path: 'index',
         component: _import('dashboard/index'),
         meta: {
           title: '首页',
@@ -66,6 +63,24 @@ const asyncRouterMap = [
         component: _import('dashboard/index'),
         meta: {
           title: '资源管理',
+          icon: 'el-icon-date',
+        },
+      },
+    ],
+  },
+  {
+    path: '/vcharts-demo',
+    component: Layout,
+    meta: {
+      title: 'v-charts',
+      icon: 'el-icon-date',
+    },
+    children: [
+      {
+        path: 'line',
+        component: _import('vcharts-demo/line'),
+        meta: {
+          title: '折线图',
           icon: 'el-icon-date',
         },
       },

@@ -38,10 +38,8 @@ const tagsView = {
     },
     delOthersViews({ commit, state }, view) {
       return new Promise((resolve) => {
-        state.visitedViews.forEach((item) => {
-          if (item.path !== view.path) {
-            commit('DEL_VISITED_VIEWS', item);
-          }
+        state.visitedViews.filter(item => item.path !== view.path).forEach((item) => {
+          commit('DEL_VISITED_VIEWS', item);
         });
         resolve([...state.visitedViews]);
       });

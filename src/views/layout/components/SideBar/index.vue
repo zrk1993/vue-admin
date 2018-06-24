@@ -32,7 +32,7 @@ export default {
       return this.$router.options.routes;
     },
     defaultActive() {
-      return this.$route.path || '/dashboard/';
+      return this.$route.path;
     },
   },
 };
