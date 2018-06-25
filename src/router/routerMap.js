@@ -84,6 +84,14 @@ const asyncRouterMap = [
           icon: 'el-icon-date',
         },
       },
+      {
+        path: 'my-tree',
+        component: _import('vcharts-demo/my-tree'),
+        meta: {
+          title: '树图',
+          icon: 'el-icon-date',
+        },
+      },
     ],
   },
 ];
