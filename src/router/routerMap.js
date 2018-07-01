@@ -94,6 +94,40 @@ const asyncRouterMap = [
       },
     ],
   },
+  {
+    path: '/d3',
+    component: Layout,
+    meta: {
+      title: 'd3',
+      icon: 'el-icon-date',
+    },
+    children: [
+      {
+        path: 'test',
+        component: _import('d3/test'),
+        meta: {
+          title: 'learn d3',
+          icon: 'el-icon-date',
+        },
+      },
+      {
+        path: 'bar-chart',
+        component: _import('d3/bar-chart'),
+        meta: {
+          title: 'bar-chart',
+          icon: 'el-icon-date',
+        },
+      },
+      {
+        path: 'tree',
+        component: _import('d3/tree/index'),
+        meta: {
+          title: 'tree',
+          icon: 'el-icon-date',
+        },
+      },
+    ],
+  },
 ];
 
 export { constantRouterMap, asyncRouterMap };

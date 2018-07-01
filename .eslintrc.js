@@ -40,6 +40,7 @@ module.exports = {
         'e', // for e.returnvalue
         'Vue',
         'item',
+        'd',
       ]
     }],
     // allow optionalDependencies
@@ -51,6 +52,7 @@ module.exports = {
     'no-underscore-dangle': 'off',
     'max-len': [0, 1800, 4],
     'arrow-body-style': 'off',
-    'quote-props': ['error', 'consistent']
+    'quote-props': ['error', 'consistent'],
+    'no-mixed-operators': 'off'
   }
 }
