@@ -17,7 +17,7 @@
         <el-button type="primary" size="mini">作废</el-button>
       </div>
     </div>
-    <el-table :data="tableData" :loading="tableLoading"  @selection-change="tableSelectionChange" size="mini" border stripe>
+    <el-table :data="tableData" v-loading="tableLoading"  @selection-change="tableSelectionChange" size="mini" border stripe>
       <el-table-column type="selection"></el-table-column>
       <el-table-column prop="uname" label="用户名"></el-table-column>
       <el-table-column prop="realName" label="真实姓名"></el-table-column>

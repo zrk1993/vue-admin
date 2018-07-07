@@ -62,6 +62,6 @@ a:hover {
   background-color: #48ca8fcb !important;
   color: #454545 !important;
 }
-.el-tree-node__content > .el-tree-node__expand-icon {
-  color: #454545 !important;
+.el-tree-node__expand-icon { /* notice !!!  如果该样式权重过高，会导致叶子节点仍显示展开图标 */
+  color: #454545;
 }

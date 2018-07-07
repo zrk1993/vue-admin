@@ -60,7 +60,7 @@ const asyncRouterMap = [
       },
       {
         path: 'resc-management',
-        component: _import('dashboard/index'),
+        component: _import('system-management/resc-management/index'),
         meta: {
           title: '资源管理',
           icon: 'el-icon-date',
@@ -84,14 +84,6 @@ const asyncRouterMap = [
           icon: 'el-icon-date',
         },
       },
-      {
-        path: 'tree',
-        component: _import('vcharts-demo/tree'),
-        meta: {
-          title: '树图',
-          icon: 'el-icon-date',
-        },
-      },
     ],
   },
   {
@@ -103,23 +95,7 @@ const asyncRouterMap = [
     },
     children: [
       {
-        path: 'test',
-        component: _import('d3/test'),
-        meta: {
-          title: 'learn d3',
-          icon: 'el-icon-date',
-        },
-      },
-      {
-        path: 'bar-chart',
-        component: _import('d3/bar-chart'),
-        meta: {
-          title: 'bar-chart',
-          icon: 'el-icon-date',
-        },
-      },
-      {
-        path: 'tree',
+        path: 'd3-tree',
         component: _import('d3/tree/index'),
         meta: {
           title: 'tree',

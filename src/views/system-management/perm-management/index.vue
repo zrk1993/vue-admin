@@ -77,7 +77,8 @@ export default {
         for (let i = 0; i < data.length; i += 1) {
           const node = data[i];
           if (node.parentId === parentId) {
-            node.children = getJsonTree(data, node.id);
+            const children = getJsonTree(data, node.id);
+            if (children.length > 0) node.children = children;
             itemArr.push(node);
           }
         }

@@ -3,7 +3,7 @@
     <side-bar class="sidebar-container"></side-bar>
     <div class="main-container">
       <nav-bar></nav-bar>
-      <app-main></app-main>
+      <app-main v-if="ready"></app-main>
     </div>
   </div>
 </template>
@@ -17,6 +17,17 @@ export default {
     NavBar,
     SideBar,
     AppMain,
+  },
+  data() {
+    return {
+      ready: false,
+    };
+  },
+  created() {
+    // 加载系统必要常量
+    this.$store.dispatch('GetConstant').then(() => {
+      this.ready = true;
+    });
   },
 };
 </script>
