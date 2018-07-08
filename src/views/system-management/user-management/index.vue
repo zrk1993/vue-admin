@@ -11,7 +11,7 @@
         </el-form-item>
       </el-form>
       <div class="actions">
-        <el-button type="primary" size="mini">分配角色</el-button>
+        <el-button type="primary" size="mini" @click="allocationRole">分配角色</el-button>
         <el-button type="primary" size="mini" @click="addUser">新增</el-button>
         <el-button type="primary" size="mini" @click="editUser">修改</el-button>
         <el-button type="primary" size="mini">作废</el-button>
@@ -34,15 +34,20 @@
     <el-dialog :title="DLaddEditUser.title" :visible.sync="DLaddEditUser.visible" width="800px">
       <add-edit-user v-if="DLaddEditUser.visible" @callback="addEditUserCb"></add-edit-user>
     </el-dialog>
+    <el-dialog title="分配角色" :visible.sync="DLallocationRole.visible" width="600px">
+      <allocation-role v-if="DLallocationRole.visible" :id="allocationRole.id" @callback="allocationRoleCb"></allocation-role>
+    </el-dialog>
   </div>
 </template>
 
 <script>
 import addEditUser from './components/add-edit-user';
+import allocationRole from './components/allocation-role';
 
 export default {
   components: {
     addEditUser,
+    allocationRole,
   },
   data() {
     return {
@@ -53,6 +58,10 @@ export default {
 
       DLaddEditUser: {
         title: '编辑用户',
+        visible: false,
+      },
+      DLallocationRole: {
+        id: null,
         visible: false,
       },
     };
@@ -93,6 +102,23 @@ export default {
     addEditUserCb(data) {
       // 弹层返回
       this.DLaddEditUser.visible = false;
+      if (data) this.getTableData();
+    },
+    allocationRole() {
+      // 分配角色
+      if (this.tableDataSelected.length !== 1) {
+        this.$message({
+          message: '请选择一条记录！',
+          type: 'warning',
+          showClose: true,
+        });
+        return;
+      }
+      this.DLallocationRole.id = this.tableDataSelected[0].id;
+      this.DLallocationRole.visible = true;
+    },
+    allocationRoleCb(data) {
+      this.DLallocationRole.visible = false;
       if (data) this.getTableData();
     },
   },

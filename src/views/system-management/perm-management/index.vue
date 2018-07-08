@@ -23,7 +23,7 @@
           </el-form-item>
         </el-form>
         <div class="actions">
-          <el-button type="primary" size="mini">分配权限</el-button>
+          <el-button type="primary" size="mini" @click="allocationResc">分配资源</el-button>
           <el-button type="primary" size="mini" @click="addPermission">新增权限</el-button>
           <el-button type="primary" size="mini">作废</el-button>
         </div>
@@ -43,15 +43,20 @@
     <el-dialog :title="DLaddEditPerm.title" :visible.sync="DLaddEditPerm.visible" width="500px">
       <add-edit-perm v-if="DLaddEditPerm.visible" @callback="addEditPermCb"></add-edit-perm>
     </el-dialog>
+    <el-dialog title="分配资源" :visible.sync="DLallocationResc.visible" width="900px">
+      <allocation-resc v-if="DLallocationResc.visible" @callback="allocationRescCb"></allocation-resc>
+    </el-dialog>
   </div>
 </template>
 
 <script>
 import addEditPerm from './components/add-edit-perm';
+import allocationResc from './components/allocation-resc';
 
 export default {
   components: {
     addEditPerm,
+    allocationResc,
   },
   data() {
     return {
@@ -66,6 +71,10 @@ export default {
 
       DLaddEditPerm: {
         title: '编辑权限',
+        visible: false,
+      },
+      DLallocationResc: {
+        id: null,
         visible: false,
       },
     };
@@ -116,8 +125,24 @@ export default {
       this.DLaddEditPerm.visible = true;
     },
     addEditPermCb(data) {
-      // 弹层返回
       this.DLaddEditPerm.visible = false;
+      if (data) this.getPermDataList();
+    },
+    allocationResc() {
+      // 分配资源
+      if (this.tableDataSelected.length !== 1) {
+        this.$message({
+          message: '请选择一条记录！',
+          type: 'warning',
+          showClose: true,
+        });
+        return;
+      }
+      this.DLallocationResc.id = this.tableDataSelected[0].id;
+      this.DLallocationResc.visible = true;
+    },
+    allocationRescCb(data) {
+      this.DLallocationResc.visible = false;
       if (data) this.getPermDataList();
     },
   },
