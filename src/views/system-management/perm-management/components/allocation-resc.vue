@@ -46,6 +46,7 @@
 
 <script>
 export default {
+  props: ['id'],
   data() {
     return {
       searchForm: {},
@@ -82,7 +83,20 @@ export default {
       this.$emit('callback');
     },
     confirm() {
-      this.$emit('callback', this.treeNodeSelected);
+      this.loading = true;
+      this.$http.post('/system_permission/perm/allocation_resc', {
+        permId: this.id,
+        rescIds: this.tableDataSelected.map(i => i.id),
+      }).then(() => {
+        this.$message({
+          message: '操作成功！',
+          type: 'success',
+          showClose: true,
+        });
+        this.$emit('callback', true);
+      }).finally(() => {
+        this.loading = false;
+      });
     },
     getData() {
       this.$http.get('/system_permission/resc/list').then((data) => {

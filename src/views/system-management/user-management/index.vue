@@ -27,7 +27,11 @@
           {{ scope.row.usable ? '是' : '否' }}
         </template>
       </el-table-column>
-       <el-table-column prop="" label="已分配角色"></el-table-column>
+       <el-table-column prop="" label="已分配角色">
+          <template slot-scope="scope">
+            {{ scope.row.roles.map(i => i.name).join('，') }}
+          </template>
+       </el-table-column>
       <el-table-column prop="desc" label="备注"></el-table-column>
     </el-table>
 
@@ -35,7 +39,7 @@
       <add-edit-user v-if="DLaddEditUser.visible" @callback="addEditUserCb"></add-edit-user>
     </el-dialog>
     <el-dialog title="分配角色" :visible.sync="DLallocationRole.visible" width="600px">
-      <allocation-role v-if="DLallocationRole.visible" :id="allocationRole.id" @callback="allocationRoleCb"></allocation-role>
+      <allocation-role v-if="DLallocationRole.visible" :id="allocationRole.id" :roleIds="DLallocationRole.roleIds" @callback="allocationRoleCb"></allocation-role>
     </el-dialog>
   </div>
 </template>
@@ -62,6 +66,7 @@ export default {
       },
       DLallocationRole: {
         id: null,
+        roleIds: [], // 已分配的角色
         visible: false,
       },
     };
@@ -115,6 +120,7 @@ export default {
         return;
       }
       this.DLallocationRole.id = this.tableDataSelected[0].id;
+      this.DLallocationRole.roleIds = this.tableDataSelected[0].roles.map(i => i.id);
       this.DLallocationRole.visible = true;
     },
     allocationRoleCb(data) {

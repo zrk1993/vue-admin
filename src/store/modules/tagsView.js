@@ -11,7 +11,7 @@ const tagsView = {
         title: view.meta.title || 'no-name',
       });
       if (!view.meta.noCache) {
-        state.cachedViews.push([view.path, Date.now()].join()); // notice!!! 这里拼接时间
+        state.cachedViews.push([view.path, Date.now()].join('_')); // notice!!! 这里拼接时间
       }
     },
     DEL_VISITED_VIEWS: (state, view) => {
@@ -49,6 +49,11 @@ const tagsView = {
         commit('DEL_ALL_VIEWS');
         resolve([...state.visitedViews]);
       });
+    },
+    refreshView({ state }, view) {
+      // 刷新视图
+      const cachedViewIndex = state.cachedViews.findIndex(item => item.startsWith(view.path));
+      if (cachedViewIndex !== -1) state.cachedViews.splice(cachedViewIndex, 1, [state.cachedViews[cachedViewIndex], Date.now()].join('_'));
     },
   },
 };
