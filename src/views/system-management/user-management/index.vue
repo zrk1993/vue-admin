@@ -22,7 +22,7 @@
       <el-table-column prop="uname" label="用户名"></el-table-column>
       <el-table-column prop="realName" label="真实姓名"></el-table-column>
       <el-table-column prop="phone" label="手机号"></el-table-column>
-      <el-table-column prop="usable" label="是否可用">
+      <el-table-column prop="usable" label="是否可用" width="80">
         <template slot-scope="scope">
           {{ scope.row.usable ? '是' : '否' }}
         </template>
@@ -39,7 +39,7 @@
       <add-edit-user v-if="DLaddEditUser.visible" @callback="addEditUserCb"></add-edit-user>
     </el-dialog>
     <el-dialog title="分配角色" :visible.sync="DLallocationRole.visible" width="600px">
-      <allocation-role v-if="DLallocationRole.visible" :id="allocationRole.id" :roleIds="DLallocationRole.roleIds" @callback="allocationRoleCb"></allocation-role>
+      <allocation-role v-if="DLallocationRole.visible" :id="DLallocationRole.id" :roleIds="DLallocationRole.roleIds" @callback="allocationRoleCb"></allocation-role>
     </el-dialog>
   </div>
 </template>

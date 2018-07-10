@@ -20,7 +20,7 @@
     <el-table :data="tableData" v-loading="tableLoading"  @selection-change="tableSelectionChange" size="mini" border stripe>
       <el-table-column type="selection"></el-table-column>
       <el-table-column prop="name" label="角色名"></el-table-column>
-      <el-table-column prop="usable" label="是否可用">
+      <el-table-column prop="usable" label="是否可用" width="80">
         <template slot-scope="scope">
           {{ scope.row.usable ? '是' : '否' }}
         </template>
