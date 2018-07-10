@@ -6,11 +6,11 @@ import ElementUI from 'element-ui';
 import './styles/element-variables.scss';
 
 import App from './App';
-import store from './store';
-import router from './router';
 import request from './utils/plugins/request';
+import router from './router';
 import autoHeight from './utils/directive/auto-height';
 import './utils/mixins/global';
+import store from './store';
 
 import './styles/base.css';
 import './styles/index.scss';

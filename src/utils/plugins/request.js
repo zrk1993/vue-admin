@@ -2,16 +2,16 @@ import axios from 'axios';
 import NProgress from 'nprogress'; // progress bar
 import 'nprogress/nprogress.css';
 import { Message } from 'element-ui';
+import store from '../../store';
 
 NProgress.configure({ showSpinner: false }); // NProgress Configuration
 
-// create an axios instance
-const baseURL = process.env.NODE_ENV === 'production' ? 'http://api.renkun.vip' : 'http://localhost:3000';
-// const baseURL = 'http://api.renkun.vip';
 const request = axios.create({
-  baseURL, // api的base_url
+  baseURL: store.getters.baseApiUrl,
   timeout: 180000, // request timeout
 });
+
+request.defaults.withCredentials = true;
 
 // 添加请求拦截器
 request.interceptors.request.use((config) => {
@@ -61,11 +61,6 @@ request.install = function install(Vue) {
       },
     },
     $http: {
-      get: function get() {
-        return request;
-      },
-    },
-    $request: {
       get: function get() {
         return request;
       },
