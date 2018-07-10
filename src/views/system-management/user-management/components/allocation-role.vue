@@ -20,7 +20,7 @@
 
 <script>
 export default {
-  props: ['id'],
+  props: ['id', 'roleIds'],
   data() {
     return {
       loading: false,
@@ -29,6 +29,7 @@ export default {
     };
   },
   created() {
+    this.selectedRoles = this.roleIds || [];
     this.init();
   },
   methods: {
@@ -43,7 +44,7 @@ export default {
     confirm() {
       this.loading = true;
       this.$http.post('/system_permission/user/allocation_role', {
-        userId: this.id || 1,
+        userId: this.id,
         roleIds: this.selectedRoles,
       }).then(() => {
         this.$message({
@@ -51,6 +52,7 @@ export default {
           type: 'success',
           showClose: true,
         });
+        this.$emit('callback', true);
       }).finally(() => {
         this.loading = false;
       });

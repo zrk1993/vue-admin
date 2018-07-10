@@ -6,6 +6,7 @@
         :data="treeData"
         :props="treeProps"
         :default-expanded-keys="[0]"
+        @check="treeCheck"
       ></el-tree>
     </div>
     <div slot="footer" class="dialog-footer">
@@ -17,6 +18,7 @@
 
 <script>
 export default {
+  props: ['id'],
   data() {
     return {
       loading: false,
@@ -49,19 +51,32 @@ export default {
     this.getData();
   },
   methods: {
+    treeCheck(data, obj) {
+      this.treeNodeSelected = obj.checkedNodes;
+    },
     cancel() {
       this.$emit('callback');
     },
     confirm() {
-      this.$emit('callback', this.treeNodeSelected);
+      this.loading = true;
+      this.$http.post('/system_permission/role/allocation_perm', {
+        roleId: this.id,
+        permIds: this.treeNodeSelected.map(i => i.id),
+      }).then(() => {
+        this.$message({
+          message: '操作成功！',
+          type: 'success',
+          showClose: true,
+        });
+        this.$emit('callback', true);
+      }).finally(() => {
+        this.loading = false;
+      });
     },
     getData() {
       this.$http.get('/system_permission/perm/list').then((data) => {
         this.data = data.result;
       });
-    },
-    treeNodeClick(data) {
-      this.treeNodeSelected = data;
     },
   },
 };

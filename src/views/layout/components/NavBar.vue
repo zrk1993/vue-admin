@@ -2,33 +2,33 @@
   <div class="navbar">
     <tags-view class="tags-view"></tags-view>
     <el-menu class="user-profile-container" mode="horizontal">
-      <el-dropdown trigger="click">
-        <div class="user-profile-content">
-          <div class="menu-icons">
-            <span class="menu-icon"><i class="el-icon-search icon"></i></span>
-            <span class="menu-icon"><i class="el-icon-message icon"></i></span>
+      <div class="menu-icons">
+        <span class="menu-icon" @click="$refreshView"><i class="el-icon-refresh icon" style="font-size: 19px;"></i></span>
+        <span class="menu-icon"><i class="el-icon-message icon"></i></span>
+        <el-dropdown trigger="click">
+          <div class="user-profile-content">
+            <img class="user-avatar" src="https://img.alicdn.com/tfs/TB1ONhloamWBuNjy1XaXXXCbXXa-200-200.png">
+            <div class="user-profile-body">
+              <span class="user-name">admin</span>
+            </div>
           </div>
-          <img class="user-avatar" src="https://img.alicdn.com/tfs/TB1ONhloamWBuNjy1XaXXXCbXXa-200-200.png">
-          <div class="user-profile-body">
-            <span class="user-name">admin</span>
-          </div>
-        </div>
-        <el-dropdown-menu class="user-dropdown" slot="dropdown">
-          <router-link to="/">
+          <el-dropdown-menu class="user-dropdown" slot="dropdown">
+            <router-link to="/">
+              <el-dropdown-item>
+                我的主页
+              </el-dropdown-item>
+            </router-link>
+            <router-link to="/">
+              <el-dropdown-item>
+                个人设置
+              </el-dropdown-item>
+            </router-link>
             <el-dropdown-item>
-              我的主页
+              <span @click="logout" style="display:block;">退出</span>
             </el-dropdown-item>
-          </router-link>
-          <router-link to="/">
-            <el-dropdown-item>
-              个人设置
-            </el-dropdown-item>
-          </router-link>
-          <el-dropdown-item>
-            <span @click="logout" style="display:block;">退出</span>
-          </el-dropdown-item>
-        </el-dropdown-menu>
-      </el-dropdown>
+          </el-dropdown-menu>
+        </el-dropdown>
+      </div>
     </el-menu>
   </div>
 </template>

@@ -26,7 +26,11 @@
         </template>
       </el-table-column>
       <el-table-column prop="desc" label="备注"></el-table-column>
-      <el-table-column prop="" label="已关联用户"></el-table-column>
+      <el-table-column prop="" label="已关联用户">
+        <template slot-scope="scope">
+          {{ scope.row.users.map(i => i.uname).join('，') }}
+        </template>
+      </el-table-column>
     </el-table>
 
     <el-dialog :title="DLaddEditRole.title" :visible.sync="DLaddEditRole.visible" width="500px">

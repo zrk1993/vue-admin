@@ -10,6 +10,7 @@ import store from './store';
 import router from './router';
 import request from './utils/plugins/request';
 import autoHeight from './utils/directive/auto-height';
+import './utils/mixins/global';
 
 import './styles/base.css';
 import './styles/index.scss';

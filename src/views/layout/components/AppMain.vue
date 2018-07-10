@@ -16,7 +16,7 @@ export default {
       return this.$store.state.tagsView.cachedViews;
     },
     key() {
-      return this.cachedViews.find(i => i.startsWith(this.$route.fullPath)) || Date.now();
+      return this.cachedViews.find(i => i.startsWith(this.$route.fullPath));
     },
   },
 };

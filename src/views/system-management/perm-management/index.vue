@@ -37,14 +37,18 @@
           </template>
         </el-table-column>
         <el-table-column prop="desc" label="备注"></el-table-column>
-        <el-table-column prop="" label="已关联用户"></el-table-column>
+        <el-table-column prop="" label="已分配角色">
+          <template slot-scope="scope">
+           {{ scope.row.roles.map(i => i.name).join('，') }}
+          </template>
+        </el-table-column>
       </el-table>
     </div>
     <el-dialog :title="DLaddEditPerm.title" :visible.sync="DLaddEditPerm.visible" width="500px">
       <add-edit-perm v-if="DLaddEditPerm.visible" @callback="addEditPermCb"></add-edit-perm>
     </el-dialog>
     <el-dialog title="分配资源" :visible.sync="DLallocationResc.visible" width="900px">
-      <allocation-resc v-if="DLallocationResc.visible" @callback="allocationRescCb"></allocation-resc>
+      <allocation-resc v-if="DLallocationResc.visible" :id="DLallocationResc.id" @callback="allocationRescCb"></allocation-resc>
     </el-dialog>
   </div>
 </template>
