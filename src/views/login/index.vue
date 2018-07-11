@@ -4,10 +4,10 @@
     <div class="ms-login">
       <el-form :model="form" :rules="rules" ref="form" label-width="0px" class="demo-form">
         <el-form-item prop="uname">
-          <el-input v-model="form.uname" placeholder="账户"></el-input>
+          <el-input v-model="form.uname" placeholder="您的账户"></el-input>
         </el-form-item>
         <el-form-item prop="passwd">
-          <el-input type="passwd" placeholder="密码" v-model="form.passwd"></el-input>
+          <el-input type="passwd" placeholder="您的密码" v-model="form.passwd"></el-input>
         </el-form-item>
         <el-form-item class="code" prop="code">
           <el-input class="value" placeholder="验证码" v-model="form.code" @keyup.enter.native="submitForm('form')"></el-input>
@@ -30,8 +30,8 @@ export default {
       codeurl: '',
       loading: false,
       form: {
-        uname: 'admin',
-        passwd: '123123',
+        uname: '',
+        passwd: '',
         code: '',
       },
       rules: {
@@ -65,6 +65,8 @@ export default {
               showClose: true,
             });
             this.$router.push({ path: '/' });
+          }).catch(() => {
+            this.changeValidCode();
           }).finally(() => {
             this.loading = false;
           });

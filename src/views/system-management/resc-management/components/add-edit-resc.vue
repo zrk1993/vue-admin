@@ -24,6 +24,28 @@
         </el-row>
         <el-row>
           <el-col :span="21">
+            <el-form-item label="请求方法" prop="type"
+              :rules="[
+                { required: true, message: '请输入', trigger: ['blur', 'change'] },
+              ]">
+              <el-select
+                class="wp100"
+                v-model="form.type"
+                placeholder="请选择">
+                <el-option
+                  label="get"
+                  value="get">
+                </el-option>
+                <el-option
+                  label="post"
+                  value="post">
+                </el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="21">
             <el-form-item label="所属目录" prop="catg"
               :rules="[
                 { required: true, message: '请输入', trigger: ['blur', 'change'] },

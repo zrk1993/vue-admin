@@ -20,9 +20,9 @@
         </el-table-column>
         <el-table-column prop="catg" label="类型">
           <template slot-scope="scope">
-            <span v-if="scope.row.type=='add'" class="text-success">新增</span>
-            <span v-if="scope.row.type=='remove'" class="text-danger">删除</span>
-            <span v-if="scope.row.type=='update'" class="text-warning">修改</span>
+            <span v-if="scope.row.action=='add'" class="text-success">新增</span>
+            <span v-if="scope.row.action=='remove'" class="text-danger">删除</span>
+            <span v-if="scope.row.action=='update'" class="text-warning">修改</span>
           </template>
         </el-table-column>
       </el-table>
@@ -77,7 +77,7 @@ export default {
     confirm() {
       this.loading = true;
       const rescSync = (resc = {}) => {
-        if (resc.type === 'add') {
+        if (resc.action === 'add') {
           return this.$http.post('/system_permission/resc/add', resc);
         } else if (resc.type === 'update') {
           return this.$http.post('/system_permission/resc/update', resc);

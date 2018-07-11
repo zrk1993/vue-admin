@@ -25,12 +25,13 @@
         <div class="actions">
           <el-button type="primary" size="mini" @click="allocationResc">分配资源</el-button>
           <el-button type="primary" size="mini" @click="addPermission">新增权限</el-button>
+          <el-button type="primary" size="mini" @click="editPermission">修改权限</el-button>
           <el-button type="primary" size="mini">作废</el-button>
         </div>
       </div>
       <el-table :data="tableData" @selection-change="tableSelectionChange" size="mini" border stripe>
         <el-table-column type="selection"></el-table-column>
-        <el-table-column prop="name" label="角色名"></el-table-column>
+        <el-table-column prop="name" label="名称"></el-table-column>
         <el-table-column prop="usable" label="是否可用" width="80">
           <template slot-scope="scope">
             {{ scope.row.usable ? '是' : '否' }}
@@ -45,7 +46,7 @@
       </el-table>
     </div>
     <el-dialog :title="DLaddEditPerm.title" :visible.sync="DLaddEditPerm.visible" width="500px">
-      <add-edit-perm v-if="DLaddEditPerm.visible" @callback="addEditPermCb"></add-edit-perm>
+      <add-edit-perm v-if="DLaddEditPerm.visible" :data="DLaddEditPerm.data" @callback="addEditPermCb"></add-edit-perm>
     </el-dialog>
     <el-dialog title="分配资源" :visible.sync="DLallocationResc.visible" width="900px">
       <allocation-resc v-if="DLallocationResc.visible" :id="DLallocationResc.id" @callback="allocationRescCb"></allocation-resc>
@@ -75,6 +76,7 @@ export default {
 
       DLaddEditPerm: {
         title: '编辑权限',
+        data: null,
         visible: false,
       },
       DLallocationResc: {
@@ -126,6 +128,20 @@ export default {
     addPermission() {
       // 新增权限
       this.DLaddEditPerm.title = '新增权限';
+      this.DLaddEditPerm.visible = true;
+    },
+    editPermission() {
+      // 编辑权限
+      if (this.tableDataSelected.length !== 1) {
+        this.$message({
+          message: '请选择一条记录！',
+          type: 'warning',
+          showClose: true,
+        });
+        return;
+      }
+      this.DLaddEditPerm.title = '编辑权限';
+      this.DLaddEditPerm.data = this.tableDataSelected[0];
       this.DLaddEditPerm.visible = true;
     },
     addEditPermCb(data) {

@@ -28,9 +28,12 @@
         :data="tableData"
         :max-height="350"
         v-loading="loading"
-        @selection-change="tableSelectionChange"
       >
-        <el-table-column type="selection"></el-table-column>
+        <el-table-column label="选择" width="55" :render-header="renderHeader">
+          <template slot-scope="scope">
+            <el-checkbox v-model="scope.row.checked"></el-checkbox>
+          </template>
+        </el-table-column>
         <el-table-column prop="name" label="接口名称"></el-table-column>
         <el-table-column prop="url" label="地址"></el-table-column>
         <el-table-column prop="catg" label="所属目录">
@@ -45,6 +48,8 @@
 </template>
 
 <script>
+import { Checkbox } from 'element-ui';
+
 export default {
   props: ['id'],
   data() {
@@ -52,7 +57,7 @@ export default {
       searchForm: {},
       loading: false,
       dataList: [],
-      tableDataSelected: null,
+      allocatedResc: [],
     };
   },
   computed: {
@@ -76,9 +81,6 @@ export default {
     search() {
       this.searchForm = this.searchForm;
     },
-    tableSelectionChange(rows) {
-      this.tableDataSelected = rows;
-    },
     cancel() {
       this.$emit('callback');
     },
@@ -86,7 +88,7 @@ export default {
       this.loading = true;
       this.$http.post('/system_permission/perm/allocation_resc', {
         permId: this.id,
-        rescIds: this.tableDataSelected.map(i => i.id),
+        rescIds: this.dataList.filter(i => i.checked).map(i => i.id),
       }).then(() => {
         this.$message({
           message: '操作成功！',
@@ -98,9 +100,32 @@ export default {
         this.loading = false;
       });
     },
+    renderHeader(createElement) {
+      const that = this;
+      return createElement(Checkbox, {
+        on: {
+          change(val) {
+            that.tableData.forEach((item) => {
+              item.checked = val;
+            });
+          },
+        },
+      });
+    },
     getData() {
-      this.$http.get('/system_permission/resc/list').then((data) => {
-        this.dataList = data.result;
+      this.loading = true;
+      Promise.all([
+        this.$http.get('/system_permission/resc/list'),
+        this.$http.get('/system_permission/perm/own/resc', { params: { permId: this.id } }),
+      ]).then(([rescList, allocatedResc]) => {
+        rescList.result.forEach((item) => {
+          const f = allocatedResc.result.find(i => i.id === item.id);
+          if (f) item.checked = true;
+        });
+        this.dataList = rescList.result;
+        this.allocatedResc = allocatedResc.result;
+      }).finally(() => {
+        this.loading = false;
       });
     },
   },

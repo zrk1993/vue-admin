@@ -2,7 +2,7 @@
   <div>
     <div class="search-form">
       <el-form :model="searchForm" ref="searchForm" size="mini" inline>
-        <el-form-item label="目录">
+        <el-form-item label="所属目录">
           <el-select
             v-model="searchForm.catg"
             multiple
@@ -16,10 +16,6 @@
             </el-option>
           </el-select>
         </el-form-item>
-        <el-form-item>
-          <el-button type="primary" @click="search">查询</el-button>
-          <el-button type="info">重置</el-button>
-        </el-form-item>
       </el-form>
       <div class="actions">
         <el-button type="primary" size="mini" @click="checkResc">接口同步</el-button>
@@ -32,13 +28,19 @@
       size="mini" border stripe
       :data="tableData"
       :max-height="maxHeight"
-      v-auto-height:maxHeight="-15"
+      v-auto-height:maxHeight="-20"
       v-loading="tableLoading"
       @selection-change="tableSelectionChange"
     >
       <el-table-column type="selection"></el-table-column>
       <el-table-column prop="name" label="接口名称"></el-table-column>
-      <el-table-column prop="url" label="地址"></el-table-column>
+      <el-table-column prop="url" label="地址">
+        <template slot-scope="scope">
+          <el-button type="text" size="mini" @click="openSwagger(scope.row)">
+            {{ scope.row.url }}
+          </el-button>
+        </template>
+      </el-table-column>
       <el-table-column prop="catg" label="所属目录">
         <template slot-scope="scope">
           {{ constant['API_CATG'][scope.row.catg] }}
@@ -74,7 +76,7 @@ export default {
     return {
       maxHeight: 0,
       searchForm: {},
-      tableData: [],
+      dataList: [],
       tableDataSelected: [],
       tableLoading: false,
 
@@ -91,19 +93,32 @@ export default {
     constant() {
       return this.$store.state.constant.constant;
     },
+    tableData() {
+      let result = this.dataList;
+
+      if (this.searchForm.catg && this.searchForm.catg.length > 0) {
+        result = result.filter(item => !!this.searchForm.catg.find(i => i === item.catg));
+      }
+
+      return result;
+    },
   },
   created() {
     this.getTableData();
   },
   methods: {
+    openSwagger(resc) {
+      // 打开接口对应的swagger地址
+      const url = `/${resc.catg}/${resc.type}${resc.url.replace(/\//g, '_')}`;
+      window.open(`${this.$store.state.app.baseApiUrl}/swagger-ui/index.html#${url}`, 'swagger');
+    },
     search() {
       this.getTableData();
     },
     getTableData() {
       this.tableLoading = true;
-      this.$http.get('/system_permission/resc/list',
-        { params: { catg: (this.searchForm.catg || []).join(',') } }).then((data) => {
-        this.tableData = data.result;
+      this.$http.get('/system_permission/resc/list').then((data) => {
+        this.dataList = data.result;
       }).finally(() => {
         this.tableLoading = false;
       });

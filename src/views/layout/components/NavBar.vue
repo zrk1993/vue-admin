@@ -9,7 +9,7 @@
           <div class="user-profile-content">
             <img class="user-avatar" src="https://img.alicdn.com/tfs/TB1ONhloamWBuNjy1XaXXXCbXXa-200-200.png">
             <div class="user-profile-body">
-              <span class="user-name">admin</span>
+              <span class="user-name">{{ user.realName }}</span>
             </div>
           </div>
           <el-dropdown-menu class="user-dropdown" slot="dropdown">
@@ -20,7 +20,7 @@
             </router-link>
             <router-link to="/">
               <el-dropdown-item>
-                个人设置
+                修改密码
               </el-dropdown-item>
             </router-link>
             <el-dropdown-item>
@@ -43,8 +43,16 @@ export default {
     Hamburger,
     TagsView,
   },
+  computed: {
+    user() {
+      return this.$store.state.user;
+    },
+  },
   methods: {
     logout() {
+      this.$http.get('/system_permission/user/logout').then(() => {
+        this.$router.push({ path: '/login' });
+      });
     },
   },
 };
