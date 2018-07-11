@@ -4,10 +4,12 @@ const _import = require('./_import_' + process.env.NODE_ENV); /* eslint-disable-
 
 const constantRouterMap = [
   { path: '/login', component: _import('login/index'), hidden: true },
-  { path: '*', component: _import('dashboard/index'), hidden: true },
 ];
 
 const asyncRouterMap = [
+  { path: '/404', component: _import('dashboard/index'), hidden: true },
+  { path: '/error', component: _import('dashboard/index'), hidden: true },
+  { path: '*', redirect: '/404' },
   { path: '', redirect: '/dashboard/index' },
   {
     path: '/dashboard',

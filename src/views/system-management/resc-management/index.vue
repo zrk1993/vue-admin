@@ -109,8 +109,8 @@ export default {
   methods: {
     openSwagger(resc) {
       // 打开接口对应的swagger地址
-      const url = `/${resc.catg}/${resc.type}${resc.url.replace(/\//g, '_')}`;
-      window.open(`${this.$store.state.app.baseApiUrl}/swagger-ui/index.html#${url}`, 'swagger');
+      const url = `${this.$store.state.app.baseApiUrl}/swagger-ui/index.html#${resc.catg}/${resc.type}${resc.url.replace(/\//g, '_')}`;
+      window.open(url, '_blank');
     },
     search() {
       this.getTableData();

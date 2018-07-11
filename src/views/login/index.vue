@@ -59,11 +59,6 @@ export default {
         if (valid) {
           this.loading = true;
           this.$http.post('/system_permission/user/login', this.form).then(() => {
-            this.$message({
-              message: '登陆成功！',
-              type: 'success',
-              showClose: true,
-            });
             this.$router.push({ path: '/' });
           }).catch(() => {
             this.changeValidCode();

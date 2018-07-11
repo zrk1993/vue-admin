@@ -2,6 +2,7 @@
   <div class="g-layout">
     <div class="g-left">
       <el-tree
+        ref="tree"
         node-key="id"
         :check-on-click-node="true"
         :data="treeData"
@@ -102,8 +103,8 @@ export default {
       return getJsonTree(this.permDataList, -1);
     },
     tableData() {
-      const data = this.permDataList.filter(item => this.treeNodeSelected
-        && item.parentId === this.treeNodeSelected.id);
+      const data = this.permDataList.filter(item =>
+        !this.treeNodeSelected || item.parentId === this.treeNodeSelected.id);
       return data;
     },
   },

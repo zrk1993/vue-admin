@@ -32,7 +32,7 @@
             {{ scope.row.roles.map(i => i.name).join('，') }}
           </template>
        </el-table-column>
-      <el-table-column prop="desc" label="备注"></el-table-column>
+      <el-table-column prop="desc" label="备注" show-overflow-tooltip></el-table-column>
     </el-table>
 
     <el-dialog :title="DLaddEditUser.title" :visible.sync="DLaddEditUser.visible" width="800px">
