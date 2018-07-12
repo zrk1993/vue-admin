@@ -32,7 +32,7 @@ export default {
       return this.$store.state.permission.routers;
     },
     defaultActive() {
-      return this.$route.path;
+      return this.$route.fullPath.split('/').slice(0, 3).join('/');
     },
   },
 };

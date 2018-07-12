@@ -36,20 +36,15 @@
     <el-dialog :title="DLaddEditRole.title" :visible.sync="DLaddEditRole.visible" width="500px">
       <add-edit-role v-if="DLaddEditRole.visible" @callback="addEditRoleCb"></add-edit-role>
     </el-dialog>
-    <el-dialog title="分配权限" :visible.sync="DLallocationPerm.visible" width="500px">
-      <allocation-perm :id="DLallocationPerm.id" v-if="DLallocationPerm.visible" @callback="allocationPermCb"></allocation-perm>
-    </el-dialog>
   </div>
 </template>
 
 <script>
 import addEditRole from './components/add-edit-role';
-import allocationPerm from './components/allocation-perm';
 
 export default {
   components: {
     addEditRole,
-    allocationPerm,
   },
   data() {
     return {
@@ -60,10 +55,6 @@ export default {
 
       DLaddEditRole: {
         title: '编辑角色',
-        visible: false,
-      },
-      DLallocationPerm: {
-        id: null,
         visible: false,
       },
     };
@@ -116,12 +107,12 @@ export default {
         });
         return;
       }
-      this.DLallocationPerm.id = this.tableDataSelected[0].id;
-      this.DLallocationPerm.visible = true;
-    },
-    allocationPermCb(data) {
-      this.DLallocationPerm.visible = false;
-      if (data) this.getTableData();
+      this.$router.push({
+        path: '/system-management/role-management/allocation-perm',
+        query: {
+          id: this.tableDataSelected[0].id,
+        },
+      });
     },
   },
 };

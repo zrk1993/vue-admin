@@ -3,7 +3,7 @@
     <scroll-pane class='tags-view-wrapper' ref='scrollPane'>
       <router-link ref='tag' class="tags-view-item" :class="isActive(tag)?'active':''"
         v-for="tag in Array.from(visitedViews)"
-        :to="tag.path" :key="tag.path" @contextmenu.prevent.native="openMenu(tag,$event)">
+        :to="tag.fullPath" :key="tag.fullPath" @contextmenu.prevent.native="openMenu(tag,$event)">
         {{generateTitle(tag.title)}}
         <span class='el-icon-close' @click.prevent.stop='closeSelectedTag(tag)'></span>
       </router-link>
@@ -59,7 +59,7 @@ export default {
       return this.$route;
     },
     isActive(route) {
-      return route.path === this.$route.path;
+      return route.fullPath === this.$route.fullPath;
     },
     addViewTags() {
       const route = this.generateRoute();
@@ -73,7 +73,7 @@ export default {
       this.$nextTick(() => {
         // eslint-disable-next-line
         for (const tag of tags) {
-          if (tag.to === this.$route.path) {
+          if (tag.to === this.$route.fullPath) {
             this.$refs.scrollPane.moveToTarget(tag.$el);
             break;
           }
@@ -85,7 +85,7 @@ export default {
         if (this.isActive(view)) {
           const latestView = views.slice(-1)[0];
           if (latestView) {
-            this.$router.push(latestView.path);
+            this.$router.push(latestView.fullPath);
           } else {
             this.$router.push('/');
           }
@@ -93,7 +93,7 @@ export default {
       });
     },
     closeOthersTags() {
-      this.$router.push(this.selectedTag.path);
+      this.$router.push(this.selectedTag.fullPath);
       this.$store.dispatch('delOthersViews', this.selectedTag).then(() => {
         this.moveToCurrentTag();
       });

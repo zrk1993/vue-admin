@@ -59,10 +59,28 @@ const asyncRouterMap = [
         },
       },
       {
+        path: 'role-management/allocation-perm',
+        component: _import('system-management/role-management/allocation-perm'),
+        hidden: true,
+        meta: {
+          title: '分配权限',
+          icon: 'el-icon-date',
+        },
+      },
+      {
         path: 'perm-management',
         component: _import('system-management/perm-management/index'),
         meta: {
           title: '权限管理',
+          icon: 'el-icon-date',
+        },
+      },
+      {
+        path: 'perm-management/allocation-resc',
+        component: _import('system-management/perm-management/allocation-resc'),
+        hidden: true,
+        meta: {
+          title: '分配资源',
           icon: 'el-icon-date',
         },
       },

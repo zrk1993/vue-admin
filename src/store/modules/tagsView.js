@@ -5,20 +5,20 @@ const tagsView = {
   },
   mutations: {
     ADD_VISITED_VIEWS: (state, view) => {
-      if (state.visitedViews.some(v => v.path === view.path)) return;
+      if (state.visitedViews.some(v => v.fullPath === view.fullPath)) return;
       state.visitedViews.push({
-        path: view.path,
+        fullPath: view.fullPath,
         title: view.meta.title || 'no-name',
       });
       if (!view.meta.noCache) {
-        state.cachedViews.push([view.path, Date.now()].join('_')); // notice!!! 这里拼接时间
+        state.cachedViews.push([view.fullPath, Date.now()].join('_')); // notice!!! 这里拼接时间
       }
     },
     DEL_VISITED_VIEWS: (state, view) => {
-      const visitedViewIndex = state.visitedViews.findIndex(item => item.path === view.path);
+      const visitedViewIndex = state.visitedViews.findIndex(item => item.fullPath === view.fullPath);
       if (visitedViewIndex !== -1) state.visitedViews.splice(visitedViewIndex, 1);
 
-      const cachedViewIndex = state.cachedViews.findIndex(item => item.startsWith(view.path));
+      const cachedViewIndex = state.cachedViews.findIndex(item => item.startsWith(view.fullPath));
       if (cachedViewIndex !== -1) state.cachedViews.splice(cachedViewIndex, 1);
     },
     DEL_ALL_VIEWS: (state) => {
@@ -38,7 +38,7 @@ const tagsView = {
     },
     delOthersViews({ commit, state }, view) {
       return new Promise((resolve) => {
-        state.visitedViews.filter(item => item.path !== view.path).forEach((item) => {
+        state.visitedViews.filter(item => item.fullPath !== view.fullPath).forEach((item) => {
           commit('DEL_VISITED_VIEWS', item);
         });
         resolve([...state.visitedViews]);
@@ -52,7 +52,8 @@ const tagsView = {
     },
     refreshView({ state }, view) {
       // 刷新视图
-      const cachedViewIndex = state.cachedViews.findIndex(item => item.startsWith(view.path));
+      const cachedViewIndex = state.cachedViews.findIndex(item => item.startsWith(view.fullPath));
+      debugger;
       if (cachedViewIndex !== -1) state.cachedViews.splice(cachedViewIndex, 1, [state.cachedViews[cachedViewIndex], Date.now()].join('_'));
     },
   },

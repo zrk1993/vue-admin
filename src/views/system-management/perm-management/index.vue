@@ -49,20 +49,15 @@
     <el-dialog :title="DLaddEditPerm.title" :visible.sync="DLaddEditPerm.visible" width="500px">
       <add-edit-perm v-if="DLaddEditPerm.visible" :data="DLaddEditPerm.data" @callback="addEditPermCb"></add-edit-perm>
     </el-dialog>
-    <el-dialog title="分配资源" :visible.sync="DLallocationResc.visible" width="900px">
-      <allocation-resc v-if="DLallocationResc.visible" :id="DLallocationResc.id" @callback="allocationRescCb"></allocation-resc>
-    </el-dialog>
   </div>
 </template>
 
 <script>
 import addEditPerm from './components/add-edit-perm';
-import allocationResc from './components/allocation-resc';
 
 export default {
   components: {
     addEditPerm,
-    allocationResc,
   },
   data() {
     return {
@@ -78,10 +73,6 @@ export default {
       DLaddEditPerm: {
         title: '编辑权限',
         data: null,
-        visible: false,
-      },
-      DLallocationResc: {
-        id: null,
         visible: false,
       },
     };
@@ -159,12 +150,12 @@ export default {
         });
         return;
       }
-      this.DLallocationResc.id = this.tableDataSelected[0].id;
-      this.DLallocationResc.visible = true;
-    },
-    allocationRescCb(data) {
-      this.DLallocationResc.visible = false;
-      if (data) this.getPermDataList();
+      this.$router.push({
+        path: '/system-management/perm-management/allocation-resc',
+        query: {
+          id: this.tableDataSelected[0].id,
+        },
+      });
     },
   },
 };

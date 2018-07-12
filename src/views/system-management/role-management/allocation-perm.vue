@@ -1,33 +1,39 @@
 <template>
-  <div class="dialog">
-    <div class="dialog-cont tac">
-      <el-tree
-        show-checkbox
-        :data="treeData"
-        :props="treeProps"
-        :default-expanded-keys="[0]"
-        @check="treeCheck"
-      ></el-tree>
+  <div>
+    <div class="page-nav">
+      <div class="title">
+        权限分配
+      </div>
+      <div class="actions">
+        <el-button size="mini" type="primary" :loading="loading" @click="confirm">保存</el-button>
+      </div>
     </div>
-    <div slot="footer" class="dialog-footer">
-      <el-button size="mini" @click="cancel">取 消</el-button>
-      <el-button size="mini" type="primary" :loading="loading" @click="confirm">确 定</el-button>
+    <div style="padding: 10px;">
+      <div>
+        <div v-for="(item, item_i) in treeData" :key="item_i">
+          <div>
+            <div v-for="(obj, obj_i) in item.children" :key="obj_i">
+              <div>
+                {{ obj.name }}
+              </div>
+              <div v-for="(perm, perm_i) in obj.children" :key="perm_i">
+                <el-checkbox v-model="perm.checked">{{ perm.name }}</el-checkbox>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  props: ['id'],
   data() {
     return {
+      id: null,
       loading: false,
       data: [],
-      treeNodeSelected: null,
-      treeProps: {
-        children: 'children',
-        label: 'name',
-      },
     };
   },
   computed: {
@@ -48,12 +54,10 @@ export default {
     },
   },
   created() {
+    this.id = this.$route.query.id;
     this.getData();
   },
   methods: {
-    treeCheck(data, obj) {
-      this.treeNodeSelected = obj.checkedNodes;
-    },
     cancel() {
       this.$emit('callback');
     },
@@ -81,3 +85,6 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+</style>

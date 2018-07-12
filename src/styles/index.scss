@@ -65,3 +65,13 @@ a:hover {
 .el-tree-node__expand-icon { /* notice !!!  如果该样式权重过高，会导致叶子节点仍显示展开图标 */
   color: #454545;
 }
+
+/* 二级页面头部 */
+.page-nav {
+  display: flex;
+  justify-content: space-between;
+  border-left: 3px solid #42b982;
+  padding-left: 10px;
+  align-items: center;
+  margin: 0 0 10px 0;
+}
