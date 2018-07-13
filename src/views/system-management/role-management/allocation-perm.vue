@@ -9,20 +9,16 @@
       </div>
     </div>
     <div style="padding: 10px;">
-      <div>
-        <div v-for="(item, item_i) in treeData" :key="item_i">
-          <div>
-            <div v-for="(obj, obj_i) in item.children" :key="obj_i">
-              <div>
-                {{ obj.name }}
-              </div>
-              <div v-for="(perm, perm_i) in obj.children" :key="perm_i">
-                <el-checkbox v-model="perm.checked">{{ perm.name }}</el-checkbox>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <el-tree
+        ref="tree"
+        node-key="id"
+        :indent="25"
+        :default-expand-all="true"
+        :default-checked-keys="checkedKeys"
+        :show-checkbox="true"
+        :data="treeData"
+        :props="treeProps"
+      ></el-tree>
     </div>
   </div>
 </template>
@@ -34,6 +30,11 @@ export default {
       id: null,
       loading: false,
       data: [],
+      allocatedPerm: [],
+      treeProps: {
+        children: 'children',
+        label: 'name',
+      },
     };
   },
   computed: {
@@ -52,6 +53,9 @@ export default {
       }
       return getJsonTree(this.data, -1);
     },
+    checkedKeys() {
+      return this.allocatedPerm.map(i => i.id);
+    },
   },
   created() {
     this.id = this.$route.query.id;
@@ -65,7 +69,7 @@ export default {
       this.loading = true;
       this.$http.post('/system_permission/role/allocation_perm', {
         roleId: this.id,
-        permIds: this.treeNodeSelected.map(i => i.id),
+        permIds: this.$refs.tree.getCheckedNodes().map(i => i.id),
       }).then(() => {
         this.$message({
           message: '操作成功！',
@@ -78,13 +82,16 @@ export default {
       });
     },
     getData() {
-      this.$http.get('/system_permission/perm/list').then((data) => {
-        this.data = data.result;
+      Promise.all([
+        this.$http.get('/system_permission/perm/list'),
+        this.$http.get('/system_permission/role/own/perm', { params: { roleId: this.id } }),
+      ]).then(([permList, allocatedPerm]) => {
+        this.data = permList.result;
+        this.allocatedPerm = allocatedPerm.result;
+      }).finally(() => {
+        this.loading = false;
       });
     },
   },
 };
 </script>
-
-<style scoped>
-</style>

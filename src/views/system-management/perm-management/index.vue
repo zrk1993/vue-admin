@@ -33,6 +33,8 @@
       <el-table :data="tableData" @selection-change="tableSelectionChange" size="mini" border stripe>
         <el-table-column type="selection"></el-table-column>
         <el-table-column prop="name" label="名称"></el-table-column>
+        <el-table-column prop="code" label="CODE"></el-table-column>
+        <el-table-column prop="sort" label="排序" width="80"></el-table-column>
         <el-table-column prop="usable" label="是否可用" width="80">
           <template slot-scope="scope">
             {{ scope.row.usable ? '是' : '否' }}
@@ -79,19 +81,20 @@ export default {
   },
   computed: {
     treeData() {
-      function getJsonTree(data, parentId) {
+      function getJsonTree(data, parentId, parentName) {
         const itemArr = [];
         for (let i = 0; i < data.length; i += 1) {
           const node = data[i];
           if (node.parentId === parentId) {
-            const children = getJsonTree(data, node.id);
+            node.parentName = parentName;
+            const children = getJsonTree(data, node.id, node.name);
             if (children.length > 0) node.children = children;
             itemArr.push(node);
           }
         }
         return itemArr;
       }
-      return getJsonTree(this.permDataList, -1);
+      return getJsonTree(this.permDataList, -1, '管理系统');
     },
     tableData() {
       const data = this.permDataList.filter(item =>

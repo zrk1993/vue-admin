@@ -24,6 +24,16 @@
         </el-row>
         <el-row>
           <el-col :span="22">
+            <el-form-item label="排序" prop="sort"
+              :rules="[
+                { required: true, message: '请输入', trigger: ['blur', 'change'] },
+              ]">
+              <el-input v-model="form.sort"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="22">
             <el-form-item label="上级权限" prop="parentName"
               :rules="[
                 { required: true, message: '请选择上级权限', trigger: ['blur', 'change'] },
@@ -61,6 +71,7 @@ export default {
   components: {
     choosePerm,
   },
+  props: ['data'],
   data() {
     return {
       validate,
@@ -72,13 +83,17 @@ export default {
       },
     };
   },
+  created() {
+    if (this.data) this.form = Object.assign({}, this.data);
+  },
   methods: {
     cancel() {
       this.$emit('callback');
     },
     confirm() {
       this.loading = true;
-      this.$http.post('/system_permission/perm/add', this.form).then((data) => {
+      const url = this.form.id ? '/system_permission/perm/update' : '/system_permission/perm/add';
+      this.$http.post(url, this.form).then((data) => {
         this.$emit('callback', data);
       }).catch(() => {}).finally(() => {
         this.loading = false;

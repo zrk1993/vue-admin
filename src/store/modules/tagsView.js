@@ -11,7 +11,7 @@ const tagsView = {
         title: view.meta.title || 'no-name',
       });
       if (!view.meta.noCache) {
-        state.cachedViews.push([view.fullPath, Date.now()].join('_')); // notice!!! 这里拼接时间
+        state.cachedViews.push([view.fullPath, Date.now()].join('_kun_')); // notice!!! 这里拼接时间
       }
     },
     DEL_VISITED_VIEWS: (state, view) => {
@@ -53,8 +53,7 @@ const tagsView = {
     refreshView({ state }, view) {
       // 刷新视图
       const cachedViewIndex = state.cachedViews.findIndex(item => item.startsWith(view.fullPath));
-      debugger;
-      if (cachedViewIndex !== -1) state.cachedViews.splice(cachedViewIndex, 1, [state.cachedViews[cachedViewIndex], Date.now()].join('_'));
+      if (cachedViewIndex !== -1) state.cachedViews.splice(cachedViewIndex, 1, [state.cachedViews[cachedViewIndex], Date.now()].join('_kun_'));
     },
   },
 };
