@@ -88,7 +88,10 @@ export default {
           if (node.parentId === parentId) {
             node.parentName = parentName;
             const children = getJsonTree(data, node.id, node.name);
-            if (children.length > 0) node.children = children;
+            if (children.length > 0) {
+              node.children = children;
+              node.children.sort((a, b) => b.sort - a.sort);
+            }
             itemArr.push(node);
           }
         }
@@ -99,6 +102,7 @@ export default {
     tableData() {
       const data = this.permDataList.filter(item =>
         !this.treeNodeSelected || item.parentId === this.treeNodeSelected.id);
+      data.sort((a, b) => b.sort - a.sort);
       return data;
     },
   },
