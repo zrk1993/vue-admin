@@ -21,6 +21,7 @@ const asyncRouterMap = [
     component: Layout,
     meta: {
       title: '首页',
+      code: 'dashboard',
       icon: 'el-icon-date',
     },
     children: [
@@ -29,6 +30,7 @@ const asyncRouterMap = [
         component: _import('dashboard/index'),
         meta: {
           title: '首页',
+          code: 'dashboard_index',
           icon: 'el-icon-date',
         },
       },
@@ -39,6 +41,7 @@ const asyncRouterMap = [
     component: Layout,
     meta: {
       title: '系统管理',
+      code: 'system-management',
       icon: 'el-icon-date',
     },
     children: [
@@ -47,6 +50,7 @@ const asyncRouterMap = [
         component: _import('system-management/user-management/index'),
         meta: {
           title: '用户管理',
+          code: 'system-management_user-management',
           icon: 'el-icon-date',
         },
       },
@@ -55,6 +59,7 @@ const asyncRouterMap = [
         component: _import('system-management/role-management/index'),
         meta: {
           title: '角色管理',
+          code: 'system-management_role-management',
           icon: 'el-icon-date',
         },
       },
@@ -64,6 +69,7 @@ const asyncRouterMap = [
         hidden: true,
         meta: {
           title: '分配权限',
+          code: 'system-management_role-management_allocation-perm',
           icon: 'el-icon-date',
         },
       },
@@ -72,6 +78,7 @@ const asyncRouterMap = [
         component: _import('system-management/perm-management/index'),
         meta: {
           title: '权限管理',
+          code: 'system-management_perm-management',
           icon: 'el-icon-date',
         },
       },
@@ -81,6 +88,7 @@ const asyncRouterMap = [
         hidden: true,
         meta: {
           title: '分配资源',
+          code: 'perm-management_allocation-resc',
           icon: 'el-icon-date',
         },
       },
@@ -89,6 +97,7 @@ const asyncRouterMap = [
         component: _import('system-management/resc-management/index'),
         meta: {
           title: '资源管理',
+          code: 'system-management_resc-management',
           icon: 'el-icon-date',
         },
       },
@@ -99,6 +108,7 @@ const asyncRouterMap = [
     component: Layout,
     meta: {
       title: 'v-charts',
+      code: 'vcharts-demo',
       icon: 'el-icon-date',
     },
     children: [
@@ -107,6 +117,7 @@ const asyncRouterMap = [
         component: _import('vcharts-demo/line'),
         meta: {
           title: '折线图',
+          code: 'vcharts-demo_line',
           icon: 'el-icon-date',
         },
       },
@@ -117,6 +128,7 @@ const asyncRouterMap = [
     component: Layout,
     meta: {
       title: 'd3',
+      code: 'd3',
       icon: 'el-icon-date',
     },
     children: [
@@ -125,6 +137,7 @@ const asyncRouterMap = [
         component: _import('d3/tree/index'),
         meta: {
           title: 'tree',
+          code: 'd3_tree',
           icon: 'el-icon-date',
         },
       },

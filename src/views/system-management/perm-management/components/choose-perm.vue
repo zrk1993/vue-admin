@@ -39,7 +39,7 @@ export default {
             const children = getJsonTree(data, node.id);
             if (children.length > 0) {
               node.children = children;
-              node.children.sort((a, b) => b.sort - a.sort);
+              node.children.sort((a, b) => a.sort - b.sort);
             }
             itemArr.push(node);
           }

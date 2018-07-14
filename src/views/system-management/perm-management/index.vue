@@ -25,12 +25,20 @@
         </el-form>
         <div class="actions">
           <el-button type="primary" size="mini" @click="allocationResc">分配资源</el-button>
+          <el-button type="primary" size="mini" @click="generatePerm">初始化权限</el-button>
           <el-button type="primary" size="mini" @click="addPermission">新增权限</el-button>
           <el-button type="primary" size="mini" @click="editPermission">修改权限</el-button>
           <el-button type="primary" size="mini">作废</el-button>
         </div>
       </div>
-      <el-table :data="tableData" @selection-change="tableSelectionChange" size="mini" border stripe>
+      <el-table
+        class="wp100"
+        size="mini" border stripe
+        :data="tableData"
+        :max-height="maxHeight"
+        v-auto-height:maxHeight="-20"
+        @selection-change="tableSelectionChange"
+      >
         <el-table-column type="selection"></el-table-column>
         <el-table-column prop="name" label="名称"></el-table-column>
         <el-table-column prop="code" label="CODE"></el-table-column>
@@ -43,26 +51,45 @@
         <el-table-column prop="desc" label="备注"></el-table-column>
         <el-table-column prop="" label="已分配角色">
           <template slot-scope="scope">
-           {{ scope.row.roles.map(i => i.name).join('，') }}
+           {{ (scope.row.roles || []).map(i => i.name).join('，') }}
+          </template>
+        </el-table-column>
+        <el-table-column prop="" label="已分配的资源" show-overflow-tooltip>
+          <template slot-scope="scope">
+           {{ (scope.row.rescs || []).map(i => i.name).join('，') }}
           </template>
         </el-table-column>
       </el-table>
     </div>
     <el-dialog :title="DLaddEditPerm.title" :visible.sync="DLaddEditPerm.visible" width="500px">
-      <add-edit-perm v-if="DLaddEditPerm.visible" :data="DLaddEditPerm.data" @callback="addEditPermCb"></add-edit-perm>
+      <add-edit-perm
+        :parent="DLaddEditPerm.parent || {}"
+        :data="DLaddEditPerm.data"
+        v-if="DLaddEditPerm.visible"
+        @callback="addEditPermCb"
+      ></add-edit-perm>
+    </el-dialog>
+    <el-dialog title="生成权限" :visible.sync="DLgeneratePerm.visible" width="900px">
+      <generate-perm
+        v-if="DLgeneratePerm.visible"
+        @callback="generatePermCb"
+      ></generate-perm>
     </el-dialog>
   </div>
 </template>
 
 <script>
 import addEditPerm from './components/add-edit-perm';
+import generatePerm from './components/generate-perm';
 
 export default {
   components: {
     addEditPerm,
+    generatePerm,
   },
   data() {
     return {
+      maxHeight: 500,
       permDataList: [],
       treeProps: {
         children: 'children',
@@ -75,6 +102,10 @@ export default {
       DLaddEditPerm: {
         title: '编辑权限',
         data: null,
+        parent: null,
+        visible: false,
+      },
+      DLgeneratePerm: {
         visible: false,
       },
     };
@@ -90,7 +121,7 @@ export default {
             const children = getJsonTree(data, node.id, node.name);
             if (children.length > 0) {
               node.children = children;
-              node.children.sort((a, b) => b.sort - a.sort);
+              node.children.sort((a, b) => a.sort - b.sort);
             }
             itemArr.push(node);
           }
@@ -102,7 +133,7 @@ export default {
     tableData() {
       const data = this.permDataList.filter(item =>
         !this.treeNodeSelected || item.parentId === this.treeNodeSelected.id);
-      data.sort((a, b) => b.sort - a.sort);
+      data.sort((a, b) => a.sort - b.sort);
       return data;
     },
   },
@@ -127,6 +158,7 @@ export default {
     addPermission() {
       // 新增权限
       this.DLaddEditPerm.title = '新增权限';
+      this.DLaddEditPerm.parent = this.treeNodeSelected || {};
       this.DLaddEditPerm.visible = true;
     },
     editPermission() {
@@ -164,6 +196,15 @@ export default {
         },
       });
     },
+    generatePerm() {
+      // 权限生成
+      // 因为权限主要配置在前端vue-route里，所以该功能会根据vue-router的权限配置，生成权限
+      // 这会删除原来的权限
+      this.DLgeneratePerm.visible = true;
+    },
+    generatePermCb() {
+      this.DLgeneratePerm.visible = false;
+    },
   },
 };
 </script>
@@ -177,6 +218,7 @@ export default {
     flex-shrink: 0;
   }
   .g-right {
+    overflow: hidden;
     flex-grow: 1;
   }
 }

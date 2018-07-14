@@ -71,12 +71,16 @@ export default {
   components: {
     choosePerm,
   },
-  props: ['data'],
+  props: ['data', 'parent'],
   data() {
     return {
       validate,
       loading: false,
-      form: {},
+      form: {
+        code: this.parent.code,
+        parentId: this.parent.id,
+        parentName: this.parent.name,
+      },
 
       DLchoosePerm: {
         visible: false,
