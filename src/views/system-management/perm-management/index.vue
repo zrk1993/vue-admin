@@ -24,11 +24,13 @@
           </el-form-item>
         </el-form>
         <div class="actions">
-          <el-button type="primary" size="mini" @click="allocationResc">分配资源</el-button>
+          <el-button type="primary" size="mini"
+            v-if="$hasPermission('perm-management__allocation-resc')"
+            @click="allocationResc">分配资源</el-button>
           <el-button type="primary" size="mini" @click="generatePerm">初始化权限</el-button>
           <el-button type="primary" size="mini" @click="addPermission">新增权限</el-button>
           <el-button type="primary" size="mini" @click="editPermission">修改权限</el-button>
-          <el-button type="primary" size="mini">作废</el-button>
+          <el-button type="primary" size="mini" @click="deletePerm">删除</el-button>
         </div>
       </div>
       <el-table
@@ -202,8 +204,28 @@ export default {
       // 这会删除原来的权限
       this.DLgeneratePerm.visible = true;
     },
-    generatePermCb() {
+    generatePermCb(data) {
       this.DLgeneratePerm.visible = false;
+      if (data) this.getPermDataList();
+    },
+    deletePerm() {
+      // 删除
+      if (this.tableDataSelected.length < 1) {
+        this.$message({
+          message: '请选择之少一条记录！',
+          type: 'warning',
+          showClose: true,
+        });
+        return;
+      }
+      this.$http.post('/system_permission/perm/delete', { ids: this.tableDataSelected.map(i => i.id) }).then(() => {
+        this.$message({
+          message: '操作成功！',
+          type: 'success',
+          showClose: true,
+        });
+        this.getPermDataList();
+      });
     },
   },
 };

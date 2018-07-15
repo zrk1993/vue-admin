@@ -76,14 +76,27 @@ export default {
     },
     newTreeData() {
       const map = (arr) => {
-        return arr.filter(i => i.meta && i.meta.code).map((item, index) => {
-          return {
+        return arr.filter(i => i.meta && i.meta.code && !i.hidden).map((item, index) => {
+          const r = {
             name: item.meta.title,
             code: item.meta.code,
             sort: index,
             parentId: null,
-            children: item.children ? map(item.children) : null,
+            children: null,
           };
+          if (item.children) {
+            r.children = map(item.children);
+          } else if (item.meta.buttons) {
+            r.children = Object.keys(item.meta.buttons).map((k, i) => {
+              return {
+                name: item.meta.buttons[k],
+                code: k,
+                sort: i,
+                parentId: null,
+              };
+            });
+          }
+          return r;
         });
       };
       return map([
@@ -160,7 +173,7 @@ export default {
                 type: failure.length > 0 ? 'warning' : 'success',
                 showClose: true,
               });
-              this.getData();
+              this.$emit('callback', true);
             }
           });
         });

@@ -21,7 +21,7 @@
         <el-button type="primary" size="mini" @click="checkResc">接口同步</el-button>
         <el-button type="primary" size="mini" @click="addResc">新增</el-button>
         <el-button type="primary" size="mini" @click="editResc">修改</el-button>
-        <el-button type="primary" size="mini">作废</el-button>
+        <el-button type="primary" size="mini" @click="deleteResc">删除</el-button>
       </div>
     </div>
     <el-table
@@ -156,6 +156,25 @@ export default {
     checkRescCb(data) {
       this.DLcheckResc.visible = false;
       if (data) this.getTableData();
+    },
+    deleteResc() {
+      // 删除
+      if (this.tableDataSelected.length < 1) {
+        this.$message({
+          message: '请选择之少一条记录！',
+          type: 'warning',
+          showClose: true,
+        });
+        return;
+      }
+      this.$http.post('/system_permission/resc/delete', { ids: this.tableDataSelected.map(i => i.id) }).then(() => {
+        this.$message({
+          message: '操作成功！',
+          type: 'success',
+          showClose: true,
+        });
+        this.getTableData();
+      });
     },
   },
 };

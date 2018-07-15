@@ -11,10 +11,12 @@
         </el-form-item>
       </el-form>
       <div class="actions">
-        <el-button type="primary" size="mini" @click="allocationPerm">分配权限</el-button>
+        <el-button type="primary" size="mini"
+          v-if="$hasPermission('system-management__role-management__allocation-perm')"
+          @click="allocationPerm">分配权限</el-button>
         <el-button type="primary" size="mini" @click="addRole">新增</el-button>
         <el-button type="primary" size="mini" @click="editRole">修改</el-button>
-        <el-button type="primary" size="mini">作废</el-button>
+        <el-button type="primary" size="mini" @click="deleteRole">删除</el-button>
       </div>
     </div>
     <el-table :data="tableData" v-loading="tableLoading"  @selection-change="tableSelectionChange" size="mini" border stripe>
@@ -112,6 +114,25 @@ export default {
         query: {
           id: this.tableDataSelected[0].id,
         },
+      });
+    },
+    deleteRole() {
+      // 删除
+      if (this.tableDataSelected.length < 1) {
+        this.$message({
+          message: '请选择之少一条记录！',
+          type: 'warning',
+          showClose: true,
+        });
+        return;
+      }
+      this.$http.post('/system_permission/role/delete', { ids: this.tableDataSelected.map(i => i.id) }).then(() => {
+        this.$message({
+          message: '操作成功！',
+          type: 'success',
+          showClose: true,
+        });
+        this.getTableData();
       });
     },
   },

@@ -17,8 +17,8 @@ router.beforeEach((to, from, next) => {
   } else if (store.state.user.uname) {
     next();
   } else {
-    store.dispatch('GetUserInfo').then(() => {
-      store.dispatch('GenerateRoutes').then((addRouters) => {
+    store.dispatch('GetUserInfo').then((user) => {
+      store.dispatch('GenerateRoutes', user.permList).then((addRouters) => {
         router.addRoutes(addRouters);
         next({ ...to, replace: true });
       });

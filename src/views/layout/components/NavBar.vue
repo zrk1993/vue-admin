@@ -4,7 +4,7 @@
     <el-menu class="user-profile-container" mode="horizontal">
       <div class="menu-icons">
         <span class="menu-icon" @click="$refreshView"><i class="el-icon-refresh icon" style="font-size: 19px;"></i></span>
-        <span class="menu-icon"><i class="el-icon-message icon"></i></span>
+        <span class="menu-icon" @click="fullscreen"><i class="el-icon-message icon"></i></span>
         <el-dropdown trigger="click">
           <div class="user-profile-content">
             <img class="user-avatar" src="https://img.alicdn.com/tfs/TB1ONhloamWBuNjy1XaXXXCbXXa-200-200.png">
@@ -34,6 +34,7 @@
 </template>
 
 <script>
+import screenfull from 'screenfull';
 import Hamburger from '@/components/Hamburger';
 import TagsView from './TagsView';
 
@@ -50,9 +51,21 @@ export default {
   },
   methods: {
     logout() {
+      window.location.reload();
       this.$http.get('/system_permission/user/logout').then(() => {
         this.$router.push({ path: '/login' });
       });
+    },
+    fullscreen() {
+      if (screenfull.enabled) {
+        screenfull.toggle();
+      } else {
+        this.$message({
+          message: '该浏览器不知此全屏功能！',
+          type: 'error',
+          showClose: true,
+        });
+      }
     },
   },
 };
@@ -93,6 +106,9 @@ export default {
           display: inline-block;
           font-size: 18px;
           text-align: center;
+        }
+        &:hover {
+          color: #409eff !important;
         }
       }
     }
