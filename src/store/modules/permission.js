@@ -1,7 +1,8 @@
 import { asyncRouterMap, constantRouterMap } from '@/router/routerMap';
 
+const dev = true;
 function hasPermission(route, permList) {
-  if (!route.meta || !route.meta.code) return true;
+  if (dev || !route.meta || !route.meta.code) return true;
   return permList.some(i => i.code === route.meta.code);
 }
 

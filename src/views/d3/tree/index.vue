@@ -15,14 +15,16 @@ export default {
     const treeHeight = 450;
     const linkWidth = 150;
 
-    window.console.log('d3---', d3);
-    const treeLayout = d3.layout.tree()
+    const treeLayout = d3.tree()
       .size([treeWidth - 300, treeHeight])
       .separation((a, b) => {
         return (a.parent === b.parent ? 1 : 2) / a.depth;
       });
 
-    const leftNodesData = treeLayout.nodes(leftData);
+    const leftHierarchyData = d3.hierarchy(leftData);
+    const leftTreeData = treeLayout(leftHierarchyData);
+    const leftNodesData = leftTreeData.descendants();
+    const leftLinksData = leftTreeData.links();
     let leftNodesDataParent = null;
     leftNodesData.forEach((item) => {
       item.type = 'left';
@@ -35,7 +37,11 @@ export default {
 
       if (!item.parent) leftNodesDataParent = item;
     });
-    const rightNodesData = treeLayout.nodes(rightData);
+
+    const rightHierarchyData = d3.hierarchy(rightData);
+    const rightTreeData = treeLayout(rightHierarchyData);
+    const rightNodesData = rightTreeData.descendants();
+    const rightLinksData = rightTreeData.links();
     rightNodesData.forEach((item) => {
       item.type = 'right';
       item.y = item.depth * linkWidth;
@@ -52,10 +58,7 @@ export default {
     });
 
     const nodesData = leftNodesData.concat(rightNodesData);
-    const linksData = treeLayout.links(nodesData);
-
-    window.console.log('nodesData---', nodesData);
-    window.console.log('linksData---', linksData);
+    const linksData = leftLinksData.concat(rightLinksData);
 
     const margin = [30, 30, 30, 30];
     const tree = d3.select('#tree')

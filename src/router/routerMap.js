@@ -140,8 +140,17 @@ const asyncRouterMap = [
         path: 'd3-tree',
         component: _import('d3/tree/index'),
         meta: {
-          title: 'tree',
+          title: '树',
           code: 'd3__tree',
+          icon: 'el-icon-date',
+        },
+      },
+      {
+        path: 'd3-pan-zoom',
+        component: _import('d3/pan-zoom/index'),
+        meta: {
+          title: '拖拽缩放',
+          code: 'd3__pan-zoom',
           icon: 'el-icon-date',
         },
       },
