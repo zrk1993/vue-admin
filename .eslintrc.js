@@ -53,6 +53,7 @@ module.exports = {
     'max-len': [0, 1800, 4],
     'arrow-body-style': 'off',
     'quote-props': ['error', 'consistent'],
-    'no-mixed-operators': 'off'
+    'no-mixed-operators': 'off',
+    'import/prefer-default-export': 'off'
   }
 }

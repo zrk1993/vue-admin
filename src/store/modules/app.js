@@ -1,6 +1,5 @@
 const app = {
   state: {
-    baseApiUrl: 'http://localhost:3000',
     sidebar: {
       opened: true,
     },

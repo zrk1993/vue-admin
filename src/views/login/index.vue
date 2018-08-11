@@ -24,6 +24,8 @@
 </template>
 
 <script>
+import { baseURL } from '../../utils/plugins/request';
+
 export default {
   data() {
     return {
@@ -52,7 +54,7 @@ export default {
   },
   methods: {
     changeValidCode() {
-      this.codeurl = `${this.$store.state.app.baseApiUrl}/system_conf/captcha/generate?t=${Date.now()}`;
+      this.codeurl = `${baseURL}/system_conf/captcha/generate?t=${Date.now()}`;
     },
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {

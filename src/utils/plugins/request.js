@@ -2,12 +2,14 @@ import axios from 'axios';
 import NProgress from 'nprogress'; // progress bar
 import 'nprogress/nprogress.css';
 import { Message } from 'element-ui';
-import store from '../../store';
+import { ENV } from '../userAgent';
+
+const baseURL = ENV === 'dev' ? 'http://localhost:3000' : 'http://api.bullace.club';
 
 NProgress.configure({ showSpinner: false }); // NProgress Configuration
 
 const request = axios.create({
-  baseURL: store.getters.baseApiUrl,
+  baseURL,
   timeout: 180000, // request timeout
 });
 
@@ -68,4 +70,4 @@ request.install = function install(Vue) {
   });
 };
 
-export { request as default, axios };
+export { request as default, axios, baseURL };
