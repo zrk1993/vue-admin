@@ -1,9 +1,11 @@
 import Vue from 'vue';
 import Router from 'vue-router';
+import NProgress from 'nprogress';
 import { Message } from 'element-ui';
 import store from '../store';
 import { constantRouterMap } from './routerMap';
 
+NProgress.configure({ showSpinner: false });
 Vue.use(Router);
 
 const router = new Router({
@@ -12,6 +14,7 @@ const router = new Router({
 });
 
 router.beforeEach((to, from, next) => {
+  NProgress.start();
   if (to.path === '/login') {
     next();
   } else if (store.state.user.uname) {
@@ -27,6 +30,10 @@ router.beforeEach((to, from, next) => {
       next({ path: '/login' });
     });
   }
+});
+
+router.afterEach(() => {
+  NProgress.done();
 });
 
 export default router;

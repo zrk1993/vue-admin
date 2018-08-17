@@ -4,7 +4,7 @@
       <router-link ref='tag' class="tags-view-item" :class="isActive(tag)?'active':''"
         v-for="tag in Array.from(visitedViews)"
         :to="tag.fullPath" :key="tag.fullPath" @contextmenu.prevent.native="openMenu(tag,$event)">
-        {{generateTitle(tag.title)}}
+        <span class="tag-tit">{{generateTitle(tag.title)}}</span>
         <span class='el-icon-close' @click.prevent.stop='closeSelectedTag(tag)'></span>
       </router-link>
     </scroll-pane>
@@ -182,6 +182,15 @@ export default {
 //reset element css of el-icon-close
 .tags-view-wrapper {
   .tags-view-item {
+    padding: 0 5px 0 8px !important;
+
+    .tag-tit {
+      text-align: center;
+      display: inline-block;
+      min-width: 2em;
+      padding: 0 3px 0 6px;
+    }
+
     .el-icon-close {
       width: 16px;
       height: 16px;
@@ -191,7 +200,7 @@ export default {
       transition: all .3s cubic-bezier(.645, .045, .355, 1);
       transform-origin: 100% 50%;
       &:before {
-        transform: scale(.6);
+        transform: scale(.7);
         display: inline-block;
         vertical-align: -3px;
       }
