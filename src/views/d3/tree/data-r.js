@@ -26,7 +26,8 @@ const data = {
       'children':
       [
         { 'name': '杭州' },
-        { 'name': '宁波',
+        {
+          'name': '宁波',
           'children':
           [
             { 'name': '杭州' },

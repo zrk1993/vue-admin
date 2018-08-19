@@ -70,8 +70,7 @@ export default {
     },
     confirm() {
       this.loading = true;
-      const permIds = this.$refs.tree.getCheckedNodes().map(i => i.id).concat(
-        this.$refs.tree.getHalfCheckedNodes().map(i => i.id));
+      const permIds = this.$refs.tree.getCheckedNodes().map(i => i.id).concat(this.$refs.tree.getHalfCheckedNodes().map(i => i.id));
       this.$http.post('/system_permission/role/allocation_perm', {
         roleId: this.id,
         permIds,

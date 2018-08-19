@@ -174,7 +174,7 @@ export default {
         return;
       }
       this.DLaddEditPerm.title = '编辑权限';
-      this.DLaddEditPerm.data = this.tableDataSelected[0];
+      [this.DLaddEditPerm.data] = this.tableDataSelected;
       this.DLaddEditPerm.visible = true;
     },
     addEditPermCb(data) {

@@ -1,1 +1,1 @@
-export const ENV = window.location.host.includes('localhost') ? 'prod' : 'prod';
+export const ENV = process.env.NODE_ENV;
