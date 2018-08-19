@@ -18,7 +18,7 @@
     </div>
     <el-table :data="tableData" v-loading="tableLoading"  @selection-change="tableSelectionChange" size="mini" border stripe>
       <el-table-column type="selection"></el-table-column>
-      <el-table-column label="文字">
+      <el-table-column label="预览">
         <template slot-scope="scope">
           <span
             :style="{ color: scope.row.color, background: scope.row.background }"
@@ -27,6 +27,7 @@
           </span>
         </template>
       </el-table-column>
+      <el-table-column prop="text" label="文字"></el-table-column>
       <el-table-column prop="color" label="颜色"></el-table-column>
       <el-table-column prop="background" label="背景"></el-table-column>
       <el-table-column prop="usable" label="是否可用" width="80">
