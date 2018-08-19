@@ -156,6 +156,44 @@ const asyncRouterMap = [
       },
     ],
   },
+  {
+    path: '/product',
+    component: Layout,
+    meta: {
+      title: '商品管理',
+      code: 'product',
+      icon: 'el-icon-date',
+    },
+    children: [
+      {
+        path: 'brand',
+        component: _import('product/brand/index'),
+        meta: {
+          title: '商品品牌',
+          code: 'product__brand',
+          icon: 'el-icon-date',
+        },
+      },
+      {
+        path: 'catalog',
+        component: _import('product/catalog/index'),
+        meta: {
+          title: '商品目录',
+          code: 'product__catalog',
+          icon: 'el-icon-date',
+        },
+      },
+      {
+        path: 'label',
+        component: _import('product/label/index'),
+        meta: {
+          title: '商品标签',
+          code: 'product__label',
+          icon: 'el-icon-date',
+        },
+      },
+    ],
+  },
 ];
 
 export { constantRouterMap, asyncRouterMap };

@@ -4,7 +4,7 @@ import 'nprogress/nprogress.css';
 import { Message } from 'element-ui';
 import { ENV } from '../userAgent';
 
-const baseURL = ENV === 'production' ? 'http://api.bullace.club' : 'http://localhost:3000';
+const baseURL = ENV === 'production' ? 'http://api.bullace.club' : 'http://api.bullace.club';
 
 NProgress.configure({ showSpinner: false }); // NProgress Configuration
 
