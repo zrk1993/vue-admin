@@ -1,50 +1,50 @@
 <template>
   <div class="dialog">
-    <div class="dialog-cont">
+    <div class="dialog-cont tac">
       <el-form ref="form" :model="form" label-width="100px" size="small">
         <el-row>
-          <el-col :span="18">
+          <el-col :span="16">
             <el-row>
               <el-col :span="21">
-                <el-form-item label="文字" prop="text"
+                <el-form-item label="品牌名称：" prop="name"
                   :rules="[
                     { required: true, message: '请输入', trigger: ['blur', 'change'] },
                   ]">
-                  <el-input v-model="form.text"></el-input>
+                  <el-input v-model="form.name"></el-input>
                 </el-form-item>
               </el-col>
             </el-row>
             <el-row>
               <el-col :span="21">
-                <el-form-item label="颜色：" prop="color"
+                <el-form-item label="排序：" prop="name"
                   :rules="[
-                    { required: true, message: '请选择', trigger: ['blur', 'change'] },
+                    { required: true, message: '请输入', trigger: ['blur', 'change'] },
                   ]">
-                  <el-color-picker v-model="form.color"></el-color-picker>
+                  <el-input v-model="form.name"></el-input>
                 </el-form-item>
               </el-col>
             </el-row>
             <el-row>
               <el-col :span="21">
-                <el-form-item label="背景：" prop="background"
-                  :rules="[
-                    { required: true, message: '请选择', trigger: ['blur', 'change'] },
-                  ]">
-                  <el-color-picker v-model="form.background"></el-color-picker>
+                <el-form-item label="备注：">
+                  <el-input type="textarea" v-model="form.desc"></el-input>
                 </el-form-item>
               </el-col>
             </el-row>
           </el-col>
-          <el-col :span="4">
+          <el-col :span="8">
             <el-row>
               <el-col :span="21">
-                <div>
-                  <span
-                    :style="{ color: form.color, background: form.background }"
-                    style="border-radius: 4px; padding: 4px 7px 4px; display: inline-block; font-size: 12px;">
-                    {{ form.text }}
-                  </span>
-                </div>
+                <el-upload
+                  class="avatar-uploader"
+                  action="https://jsonplaceholder.typicode.com/posts/"
+                  :show-file-list="false"
+                  :on-success="handleAvatarSuccess">
+                  <img v-if="imageUrl" :src="imageUrl" class="avatar">
+                  <i v-else class="el-icon-plus avatar-uploader-icon"
+                    style="width: 120px; height: 120px;line-height: 120px;">
+                  </i>
+                </el-upload>
               </el-col>
             </el-row>
           </el-col>

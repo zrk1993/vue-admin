@@ -70,6 +70,7 @@ export default {
     height: 42px !important;
     line-height: 42px !important;
     margin: 8px 0;
+    color: rgba(255, 255, 255, 0.75) !important;
     &.is-active {
       background-color: #409eff !important;
       color: #fff !important;

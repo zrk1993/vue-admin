@@ -166,6 +166,25 @@ const asyncRouterMap = [
     },
     children: [
       {
+        path: 'spu',
+        component: _import('product/spu/index'),
+        meta: {
+          title: '商品列表',
+          code: 'product__spu',
+          icon: 'el-icon-date',
+        },
+      },
+      {
+        path: 'spu/add-edit-spu',
+        component: _import('product/spu/add-edit-spu/index'),
+        hidden: true,
+        meta: {
+          title: '新增商品',
+          code: 'product__add-edit-spu',
+          icon: 'el-icon-date',
+        },
+      },
+      {
         path: 'brand',
         component: _import('product/brand/index'),
         meta: {
@@ -189,6 +208,64 @@ const asyncRouterMap = [
         meta: {
           title: '商品标签',
           code: 'product__label',
+          icon: 'el-icon-date',
+        },
+      },
+      {
+        path: 'spec',
+        component: _import('product/spec/index'),
+        meta: {
+          title: '商品属性',
+          code: 'product__spec',
+          icon: 'el-icon-date',
+        },
+      },
+    ],
+  },
+  {
+    path: '/order',
+    component: Layout,
+    meta: {
+      title: '订单管理',
+      code: 'order',
+      icon: 'el-icon-date',
+    },
+    children: [
+      {
+        path: 'order-list',
+        component: _import('order/index'),
+        meta: {
+          title: '订单列表',
+          code: 'order__index',
+          icon: 'el-icon-date',
+        },
+      },
+    ],
+  },
+  {
+    path: '/activity',
+    component: Layout,
+    meta: {
+      title: '营销活动',
+      code: 'activity',
+      icon: 'el-icon-date',
+    },
+    children: [
+      {
+        path: 'coupon',
+        component: _import('activity/coupon/index'),
+        meta: {
+          title: '优惠券管理',
+          code: 'coupon__index',
+          icon: 'el-icon-date',
+        },
+      },
+      {
+        path: 'activity',
+        component: _import('activity/index'),
+        meta: {
+          title: '活动管理',
+          code: 'activity__index',
           icon: 'el-icon-date',
         },
       },

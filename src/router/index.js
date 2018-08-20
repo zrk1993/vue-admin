@@ -36,4 +36,13 @@ router.afterEach(() => {
   NProgress.done();
 });
 
+router._push = router.push;
+router.push = (...args) => {
+  router._push(...args);
+  // 注入修改标签的标题功能
+  if (typeof args[0] === 'object' && args[0].title) {
+    router.app.$route.meta.title = args[0].title;
+  }
+};
+
 export default router;
