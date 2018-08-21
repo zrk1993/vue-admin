@@ -1,6 +1,6 @@
 <template>
   <div class="app-main">
-    <transition name="fade" mode="out-in">
+    <transition name="fade-transform" mode="out-in">
       <keep-alive>
         <router-view :key="key"></router-view>
       </keep-alive>
@@ -29,6 +29,31 @@ export default {
   overflow: hidden;
   background: #fff;
   overflow: auto;
+}
+</style>
+
+<style>
+/*fade*/
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.15s;
+}
+
+.fade-enter,
+.fade-leave-active {
+  opacity: 0;
+}
+.fade-transform-leave-active,
+.fade-transform-enter-active {
+  transition: all .3s;
+}
+.fade-transform-enter {
+  opacity: 0;
+  transform: translateX(-15px);
+}
+.fade-transform-leave-to {
+  opacity: 0;
+  transform: translateX(15px);
 }
 </style>
 
