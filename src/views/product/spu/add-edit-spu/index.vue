@@ -6,7 +6,7 @@
       </div>
     </div>
     <div style="padding: 10px;">
-      <el-form ref="form" :model="form" label-width="140px" size="small">
+      <el-form ref="form" :model="form" label-width="140px" size="mini">
         <div class="section">
           <div class="title">
             1. 商品基本信息
@@ -65,13 +65,13 @@
             :rules="[
               { required: true, message: '请输入', trigger: ['blur', 'change'] },
             ]">
-            <spu-spec :value="form.specs"></spu-spec>
+            <spu-spec :specs.sync="form.specs"></spu-spec>
           </el-form-item>
           <el-form-item label="商品库存规格：" prop="name"
             :rules="[
               { required: true, message: '请输入', trigger: ['blur', 'change'] },
             ]">
-            <spu-sku :value="form.skus" :specs="form.specs"></spu-sku>
+            <spu-sku :value="form.skus" :specs.sync="form.specs"></spu-sku>
           </el-form-item>
           <el-form-item label="一口价：" prop="name"
             :rules="[

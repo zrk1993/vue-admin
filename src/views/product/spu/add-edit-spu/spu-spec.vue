@@ -1,19 +1,19 @@
 <template>
   <div class="wrap">
-    <el-form ref="form" :model="form" label-width="110px" size="small">
-      <div v-for="(item, index) in list" :key="index" class="item">
+    <el-form ref="form" label-width="110px" size="mini">
+      <div v-for="(item, index) in specs" :key="index" class="item">
         <el-form-item label="规格名称：" prop="name" style="margin-bottom: 9px;">
           <el-input
             style="width: 180px; border: none;"
             v-model="item.name">
           </el-input>
-          <el-button class="ml5" type="text" @click="addSpec">删除</el-button>
+          <el-button class="ml5" type="text" @click="delSpec(index)">删除</el-button>
         </el-form-item>
         <el-form-item label="规格可选值：" prop="name">
-          <span v-for="(obj, valueI) in item.values" :key="valueI" class="spec-value">
+          <span v-for="(obj, i) in item.values" :key="i" class="spec-value">
             <el-input
               style="width: 75px"
-              v-model="obj.v">
+              v-model="obj.value">
             </el-input>
             <i class="el-icon-close del"></i>
           </span>
@@ -29,26 +29,28 @@
 
 <script>
 export default {
-  props: ['value'],
+  props: ['specs'],
   data() {
     return {
-      list: [
-        {
-          name: '1',
-          values: [{ v: '' }],
-        },
-      ],
     };
+  },
+  created() {
+    if (!this.specs) {
+      this.$emit('update:specs', []);
+    }
   },
   methods: {
     addSpec() {
-      this.list.push({
+      this.specs.push({
         name: '',
-        values: [{ name: '' }],
+        values: [{ value: '' }],
       });
     },
+    delSpec(i) {
+      this.specs.splice(i, 1);
+    },
     addSpecValue(item) {
-      item.values.push({ v: '' });
+      item.values.push({ value: '' });
     },
   },
 };

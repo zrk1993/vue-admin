@@ -1,6 +1,6 @@
 <template>
   <div class="wrap">
-    <el-form ref="form" :model="form" inline label-width="0" size="small">
+    <el-form ref="form" :model="form" inline label-width="0" size="mini">
       <el-form-item v-for="(item, index) in list" :key="index" class="item">
         <el-input
           style="width: 80px"

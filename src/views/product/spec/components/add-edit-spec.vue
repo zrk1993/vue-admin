@@ -1,7 +1,7 @@
 <template>
   <div class="dialog">
     <div class="dialog-cont tac">
-      <el-form ref="form" :model="form" label-width="100px" size="small">
+      <el-form ref="form" :model="form" label-width="100px" size="mini">
         <el-row>
           <el-col :span="21">
             <el-form-item label="属性名" prop="name"
