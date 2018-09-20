@@ -37,7 +37,8 @@ module.exports = {
     'arrow-body-style': 'off',
     'quote-props': ['error', 'consistent'],
     'no-mixed-operators': 'off',
-    'import/prefer-default-export': 'off'
+    'import/prefer-default-export': 'off',
+    'prefer-destructuring': 'off'
   },
   parserOptions: {
     parser: 'babel-eslint',

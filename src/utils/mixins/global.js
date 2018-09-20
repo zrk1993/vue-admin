@@ -7,7 +7,6 @@ Vue.mixin({
     },
     $hasPermission(roles) {
       const roleList = this.$store.state.user.roleList;
-      console.log(roleList);
       return roleList && roleList.some(item => roles.some(i => i === item));
     },
   },

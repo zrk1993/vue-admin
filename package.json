@@ -11,11 +11,11 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
-    "d3": "^5.5.0",
+    "d3": "^5.7.0",
     "echarts": "^4.1.0",
-    "element-ui": "^2.4.6",
+    "element-ui": "^2.4.7",
     "nprogress": "^0.2.0",
-    "screenfull": "^3.3.2",
+    "screenfull": "^3.3.3",
     "v-charts": "^1.17.10",
     "vue": "^2.5.17",
     "vue-router": "^3.0.1",
@@ -23,10 +23,10 @@
     "wangeditor": "^3.1.1"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "^3.0.1",
-    "@vue/cli-plugin-eslint": "^3.0.1",
-    "@vue/cli-service": "^3.0.1",
-    "@vue/eslint-config-airbnb": "^3.0.1",
+    "@vue/cli-plugin-babel": "^3.0.3",
+    "@vue/cli-plugin-eslint": "^3.0.3",
+    "@vue/cli-service": "^3.0.3",
+    "@vue/eslint-config-airbnb": "^3.0.3",
     "node-sass": "^4.9.0",
     "sass-loader": "^7.0.1",
     "vue-template-compiler": "^2.5.17"

@@ -1,7 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import NProgress from 'nprogress';
-import { Message } from 'element-ui';
 import store from '../store';
 import { constantRouterMap } from './routerMap';
 
@@ -25,7 +24,7 @@ router.beforeEach((to, from, next) => {
         router.addRoutes(addRouters);
         next({ ...to, replace: true });
       });
-    }).catch((err) => {
+    }).catch(() => {
       next({ path: '/login' });
     });
   }

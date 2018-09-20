@@ -4,9 +4,8 @@ function hasPermission(route, roleList) {
   if (route.meta && route.meta.roles && route.meta.roles.length > 0) {
     if (roleList && roleList.some(item => route.meta.roles.some(i => i === item))) {
       return true;
-    } else {
-      return false;
     }
+    return false;
   }
   return true;
 }
