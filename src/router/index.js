@@ -21,12 +21,11 @@ router.beforeEach((to, from, next) => {
     next();
   } else {
     store.dispatch('GetUserInfo').then((user) => {
-      store.dispatch('GenerateRoutes', user.permList).then((addRouters) => {
+      store.dispatch('GenerateRoutes', user.roleList).then((addRouters) => {
         router.addRoutes(addRouters);
         next({ ...to, replace: true });
       });
     }).catch((err) => {
-      Message.error(err.message);
       next({ path: '/login' });
     });
   }

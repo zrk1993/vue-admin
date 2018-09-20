@@ -14,6 +14,16 @@
         </el-row>
         <el-row>
           <el-col :span="21">
+            <el-form-item label="code" prop="code"
+              :rules="[
+                { required: true, message: '请输入', trigger: ['blur', 'change'] },
+              ]">
+              <el-input v-model="form.code"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="21">
             <el-form-item label="备注">
               <el-input type="textarea" v-model="form.desc"></el-input>
             </el-form-item>

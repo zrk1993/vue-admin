@@ -5,8 +5,10 @@ Vue.mixin({
     $refreshView() {
       this.$store.dispatch('refreshView', this.$route);
     },
-    $hasPermission(code) {
-      return this.$store.state.user.permList.some(i => i.code === code);
+    $hasPermission(roles) {
+      const roleList = this.$store.state.user.roleList;
+      console.log(roleList);
+      return roleList && roleList.some(item => roles.some(i => i === item));
     },
   },
 });

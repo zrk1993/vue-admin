@@ -4,13 +4,13 @@ const app = {
   state: {
     uname: '',
     realName: '',
-    permList: [],
+    roleList: [],
   },
   mutations: {
     SET_USER_INFO: (state, user) => {
       state.uname = user.uname;
       state.realName = user.realName;
-      state.permList = user.permList;
+      state.roleList = user.roleList;
     },
   },
   actions: {

@@ -4,7 +4,7 @@ import 'nprogress/nprogress.css';
 import { Message } from 'element-ui';
 import { ENV } from '../userAgent';
 
-const baseURL = ENV === 'production' ? 'http://api.bullace.club' : 'http://api.bullace.club';
+const baseURL = ENV === 'production' ? 'http://localhost:3000' : 'http://localhost:3000';
 
 NProgress.configure({ showSpinner: false }); // NProgress Configuration
 
@@ -41,8 +41,8 @@ request.interceptors.response.use((response) => {
 }, (error) => {
   NProgress.done();
   let msg = error.message;
-  if (error.response && error.response.data && error.response.data.message) {
-    msg = error.response.data.message;
+  if (error.response && error.response.data) {
+    msg = error.response.data.message || error.response.data.result || error.message;
   }
   Message({
     message: msg,

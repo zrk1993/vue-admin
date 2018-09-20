@@ -11,9 +11,6 @@
         </el-form-item>
       </el-form>
       <div class="actions">
-        <el-button type="primary" size="mini"
-          v-if="$hasPermission('system-management__role-management__allocation-perm')"
-          @click="allocationPerm">分配权限</el-button>
         <el-button type="primary" size="mini" @click="addRole">新增</el-button>
         <el-button type="primary" size="mini" @click="editRole">修改</el-button>
         <el-button type="primary" size="mini" @click="deleteRole">删除</el-button>
@@ -22,6 +19,7 @@
     <el-table :data="tableData" v-loading="tableLoading"  @selection-change="tableSelectionChange" size="mini" border stripe>
       <el-table-column type="selection"></el-table-column>
       <el-table-column prop="name" label="角色名"></el-table-column>
+      <el-table-column prop="code" label="code"></el-table-column>
       <el-table-column prop="usable" label="是否可用" width="80">
         <template slot-scope="scope">
           {{ scope.row.usable ? '是' : '否' }}
@@ -98,23 +96,6 @@ export default {
       // 弹层返回
       this.DLaddEditRole.visible = false;
       if (data) this.getTableData();
-    },
-    allocationPerm() {
-      // 分配权限
-      if (this.tableDataSelected.length !== 1) {
-        this.$message({
-          message: '请选择一条记录！',
-          type: 'warning',
-          showClose: true,
-        });
-        return;
-      }
-      this.$router.push({
-        path: '/system-management/role-management/allocation-perm',
-        query: {
-          id: this.tableDataSelected[0].id,
-        },
-      });
     },
     deleteRole() {
       // 删除

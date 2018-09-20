@@ -1,17 +1,22 @@
 import { asyncRouterMap, constantRouterMap } from '@/router/routerMap';
 
-const dev = true;
-function hasPermission(route, permList) {
-  if (dev || !route.meta || !route.meta.code) return true;
-  return permList.some(i => i.code === route.meta.code);
+function hasPermission(route, roleList) {
+  if (route.meta && route.meta.roles && route.meta.roles.length > 0) {
+    if (roleList && roleList.some(item => route.meta.roles.some(i => i === item))) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+  return true;
 }
 
-function filterAsyncRouter(routerMap, permList) {
+function filterAsyncRouter(routerMap, roleList) {
   const accessedRouters = routerMap.filter((route) => {
-    if (hasPermission(route, permList)) {
+    if (hasPermission(route, roleList)) {
       if (route.children && route.children.length) {
         /* eslint-disable-next-line */
-        route.children = filterAsyncRouter(route.children, permList);
+        route.children = filterAsyncRouter(route.children, roleList);
       }
       return true;
     }
@@ -32,9 +37,9 @@ const permission = {
     },
   },
   actions: {
-    GenerateRoutes({ commit }, permList) {
+    GenerateRoutes({ commit }, roleList) {
       return new Promise((resolve) => {
-        const accessedRouters = filterAsyncRouter(asyncRouterMap, permList);
+        const accessedRouters = filterAsyncRouter(asyncRouterMap, roleList);
         commit('SET_ROUTERS', accessedRouters);
         resolve(accessedRouters);
       });
