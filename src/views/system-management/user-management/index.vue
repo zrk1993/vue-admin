@@ -11,10 +11,10 @@
         </el-form-item>
       </el-form>
       <div class="actions">
-        <el-button type="primary" size="mini" @click="allocationRole" v-if="$hasPermission(['admin'])">分配角色</el-button>
+        <el-button type="primary" size="mini" @click="allocationRole">分配角色</el-button>
         <el-button type="primary" size="mini" @click="addUser">新增</el-button>
         <el-button type="primary" size="mini" @click="editUser">修改</el-button>
-        <el-button type="primary" size="mini" @click="deleteUser">删除</el-button>
+        <el-button type="primary" size="mini" @click="deleteUser" v-if="$hasPermission(['admin'])">删除</el-button>
       </div>
     </div>
     <el-table :data="tableData" v-loading="tableLoading"  @selection-change="tableSelectionChange" size="mini" border stripe>
