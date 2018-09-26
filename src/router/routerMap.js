@@ -110,6 +110,24 @@ const asyncRouterMap = [
     ],
   },
   {
+    path: '/demo',
+    component: Layout,
+    meta: {
+      title: '示例',
+      icon: 'el-icon-date',
+    },
+    children: [
+      {
+        path: 'fixed',
+        component: _import('demo/fixed-table'),
+        meta: {
+          title: '表头固定',
+          icon: 'el-icon-date',
+        },
+      },
+    ],
+  },
+  {
     path: '/product',
     component: Layout,
     meta: {
