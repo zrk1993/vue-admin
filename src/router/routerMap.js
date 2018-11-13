@@ -125,6 +125,14 @@ const asyncRouterMap = [
           icon: 'el-icon-date',
         },
       },
+      {
+        path: 'virtual-list',
+        component: _import('demo/virtual-list'),
+        meta: {
+          title: '虚拟列表',
+          icon: 'el-icon-date',
+        },
+      },
     ],
   },
   {
