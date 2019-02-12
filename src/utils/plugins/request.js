@@ -4,7 +4,7 @@ import 'nprogress/nprogress.css';
 import { Message } from 'element-ui';
 import { ENV } from '../userAgent';
 
-const baseURL = ENV === 'production' ? 'http://193.112.47.114:3000' : 'http://193.112.47.114:3000';
+const baseURL = ENV === 'production' ? 'http://193.112.47.114:3000' : 'http://localhost:3000';
 
 NProgress.configure({ showSpinner: false }); // NProgress Configuration
 
